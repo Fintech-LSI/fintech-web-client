@@ -1,0 +1,121 @@
+<section class="space-y-8">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-4">Stock Market</h2>
+  
+    <!-- Stock Table -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-semibold text-gray-800">Stocks Overview</h3>
+  
+        <!-- Filter Options -->
+        <div class="flex items-center space-x-4">
+          <select class="p-3 border rounded-md text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="all">All Stocks</option>
+            <option value="rising">Rising Stocks</option>
+            <option value="falling">Falling Stocks</option>
+          </select>
+          <button class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
+            Filter
+          </button>
+        </div>
+      </div>
+  
+      <!-- Table -->
+      <table class="w-full table-auto text-sm">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="py-3 px-4 text-left">Stock</th>
+            <th class="py-3 px-4 text-left">Price</th>
+            <th class="py-3 px-4 text-left">Risk</th>
+            <th class="py-3 px-4 text-left">Trend</th>
+            <th class="py-3 px-4 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Static Data Example -->
+          <tr class="hover:bg-gray-50">
+            <td class="py-3 px-4 flex items-center space-x-2">
+              <img src="apple.jpeg" alt="Apple Logo" class="w-8 h-8"/>
+              <span>Apple (AAPL)</span>
+            </td>
+            <td class="py-3 px-4">$178.23</td>
+            <td class="py-3 px-4 text-yellow-500">Medium</td>
+            <td class="py-3 px-4 text-green-600">Rising</td>
+            <td class="py-3 px-4">
+              <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                Buy
+              </button>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="py-3 px-4 flex items-center space-x-2">
+              <img src="google.png" alt="Google Logo" class="w-8 h-8"/>
+              <span>Google (GOOGL)</span>
+            </td>
+            <td class="py-3 px-4">$2,845.55</td>
+            <td class="py-3 px-4 text-green-500">Low</td>
+            <td class="py-3 px-4 text-yellow-500">Stable</td>
+            <td class="py-3 px-4">
+              <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                Buy
+              </button>
+            </td>
+          </tr>
+          <tr class="hover:bg-gray-50">
+            <td class="py-3 px-4 flex items-center space-x-2">
+              <img src="microsoft.png" alt="Microsoft Logo" class="w-8 h-8"/>
+              <span>Microsoft (MSFT)</span>
+            </td>
+            <td class="py-3 px-4">$300.12</td>
+            <td class="py-3 px-4 text-red-500">High</td>
+            <td class="py-3 px-4 text-red-600">Falling</td>
+            <td class="py-3 px-4">
+              <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                Buy
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Stock Chart Preview -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">Stock Chart</h3>
+      <div class="flex justify-between items-center mb-6">
+        <p class="text-sm text-gray-600">Price Trend of Microsoft (MSFT)</p>
+        <button class="px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
+          View Full Chart
+        </button>
+      </div>
+      <!-- Static Placeholder for Stock Chart -->
+      <div class="w-full bg-gray-100 h-40 rounded-lg flex justify-center items-center text-gray-500">
+        <span>Chart Preview</span>
+      </div>
+    </div>
+  
+    <!-- Stock News Section -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">Latest Stock News</h3>
+      <ul class="space-y-4">
+        <li class="flex items-center">
+          <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center">
+            <i class="fas fa-bullhorn"></i>
+          </div>
+          <div class="ml-4">
+            <a href="#" class="text-blue-600 hover:underline">Apple's New iPhone 15 Launch Boosts Stock</a>
+            <p class="text-sm text-gray-500">Nov 19, 2024</p>
+          </div>
+        </li>
+        <li class="flex items-center">
+          <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center">
+            <i class="fas fa-bullhorn"></i>
+          </div>
+          <div class="ml-4">
+            <a href="#" class="text-blue-600 hover:underline">Microsoft Shares Soar After New AI Investment</a>
+            <p class="text-sm text-gray-500">Nov 18, 2024</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+  

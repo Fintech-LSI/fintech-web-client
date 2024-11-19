@@ -1,0 +1,65 @@
+<div class="min-h-screen flex bg-gray-100 text-gray-800">
+    <!-- Sidebar -->
+    <aside class="h-screen w-64 bg-gradient-to-b from-blue-600 to-blue-700 text-white shadow-lg flex flex-col fixed">
+      <!-- Logo -->
+      <div class="p-6 text-center border-b border-blue-500">
+        <h2 class="text-2xl font-bold tracking-wide">FintechPro</h2>
+      </div>
+  
+      <!-- Navigation -->
+      <nav class="flex-1 overflow-y-auto mt-6">
+
+        <!-- Transactions -->
+        <a
+          routerLink="/dashboard/transactions"
+          class="flex items-center gap-4 px-6 py-3 rounded-md hover:bg-blue-800 transition group"
+        >
+          <i class="fas fa-wallet text-xl group-hover:text-white transition"></i>
+          <span class="font-medium text-white group-hover:text-white">Transactions</span>
+        </a>
+
+
+        <!-- Profile -->
+        <a
+          routerLink="/dashboard/profile"
+          class="flex items-center gap-4 px-6 py-3 rounded-md hover:bg-blue-800 transition group"
+        >
+          <i class="fas fa-user-circle text-xl group-hover:text-white transition"></i>
+          <span class="font-medium text-white group-hover:text-white">Profile</span>
+        </a>
+        <!-- Stock Market -->
+        <a
+          routerLink="/dashboard/stocks"
+          class="flex items-center gap-4 px-6 py-3 rounded-md hover:bg-blue-800 transition group"
+        >
+          <i class="fas fa-chart-line text-xl group-hover:text-white transition"></i>
+          <span class="font-medium text-white group-hover:text-white">Stock Market</span>
+        </a>
+        <!-- Activity -->
+        <a
+          routerLink="/dashboard/activity"
+          class="flex items-center gap-4 px-6 py-3 rounded-md hover:bg-blue-800 transition group"
+        >
+          <i class="fas fa-history text-xl group-hover:text-white transition"></i>
+          <span class="font-medium text-white group-hover:text-white">Activity</span>
+        </a>
+      </nav>
+  
+      <!-- Log Out Button (Fixed at Bottom) -->
+      <div class="p-6 border-t border-blue-500">
+        <button
+          (click)="logOut()"
+          class="w-full flex items-center justify-center gap-3 py-3 text-red-100 bg-red-600 rounded-md hover:bg-red-700 transition group"
+        >
+          <i class="fas fa-sign-out-alt text-xl group-hover:text-red-200 transition"></i>
+          <span class="font-medium group-hover:text-red-200">Log Out</span>
+        </button>
+      </div>
+    </aside>
+  
+    <!-- Main Content -->
+    <main class="ml-64 flex-1 p-8">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+  
