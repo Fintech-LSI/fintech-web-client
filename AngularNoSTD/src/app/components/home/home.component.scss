@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "title";
+  src: url("./assets/GeistMono-VariableFont_wght.ttf");
+}
+
+@font-face {
+  font-family: "s-title";
+  src: url("./assets/GeistMono-VariableFont_wght.ttf");
+}
+
+h1{
+  font-size: 50px;
+  font-family: title;
+}
+
+.s-title{
+  font-family: s-title;
+}
