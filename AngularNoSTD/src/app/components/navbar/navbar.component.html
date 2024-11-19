@@ -1,0 +1,59 @@
+<nav class="bg-white shadow-lg">
+    <div class="container mx-auto px-6 md:px-12 flex items-center justify-between py-4">
+      <!-- Logo -->
+      <a href="/" class="text-2xl font-bold text-blue-600">
+        <fa-icon [icon]="faHome" class="mr-2"></fa-icon> FintechPro
+      </a>
+      <!-- Navigation Links -->
+      <div class="hidden md:flex space-x-6">
+        <a href="/" class="text-gray-600 hover:text-blue-600 transition flex items-center">
+          <fa-icon [icon]="faHome" class="mr-2"></fa-icon> Home
+        </a>
+        <a href="#features" class="text-gray-600 hover:text-blue-600 transition flex items-center">
+          <fa-icon [icon]="faClipboardList" class="mr-2"></fa-icon> Features
+        </a>
+        <a href="#about" class="text-gray-600 hover:text-blue-600 transition flex items-center">
+          <fa-icon [icon]="faInfoCircle" class="mr-2"></fa-icon> About
+        </a>
+        <a href="#contact" class="text-gray-600 hover:text-blue-600 transition flex items-center">
+          <fa-icon [icon]="faEnvelope" class="mr-2"></fa-icon> Contact
+        </a>
+      </div>
+      <!-- CTA Button -->
+      <a
+        href="/login"
+        class="hidden md:inline-block px-6 py-2 text-white bg-blue-600 rounded-full hover:bg-blue-700 transition"
+      >
+        <fa-icon [icon]="faArrowRight" class="mr-2"></fa-icon> Get Started
+      </a>
+      <!-- Mobile Menu Button -->
+      <button
+        id="menu-toggle"
+        class="md:hidden text-gray-600 focus:outline-none"
+      >
+        <fa-icon [icon]="faBars"></fa-icon>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+      <a href="/" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 flex items-center">
+        <fa-icon [icon]="faHome" class="mr-2"></fa-icon> Home
+      </a>
+      <a href="#features" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 flex items-center">
+        <fa-icon [icon]="faClipboardList" class="mr-2"></fa-icon> Features
+      </a>
+      <a href="#about" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 flex items-center">
+        <fa-icon [icon]="faInfoCircle" class="mr-2"></fa-icon> About
+      </a>
+      <a href="#contact" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 flex items-center">
+        <fa-icon [icon]="faEnvelope" class="mr-2"></fa-icon> Contact
+      </a>
+      <a
+        href="/login"
+        class="block px-6 py-3 text-white bg-blue-600 rounded-md text-center flex items-center justify-center"
+      >
+        <fa-icon [icon]="faArrowRight" class="mr-2"></fa-icon> Get Started
+      </a>
+    </div>
+  </nav>
+  

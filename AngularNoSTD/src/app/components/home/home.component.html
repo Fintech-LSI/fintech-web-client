@@ -1,85 +1,124 @@
-<div class="bg-gray-50 text-gray-800">
-    <!-- Header -->
-    <header class="bg-white shadow">
-      <div class="container mx-auto flex justify-between items-center py-4 px-6">
-        <div class="logo text-2xl font-bold text-blue-600">FintechPro</div>
-        <nav class="space-x-6 text-gray-600">
-          <a href="#features" class="hover:text-blue-600">Features</a>
-          <a href="#about" class="hover:text-blue-600">About</a>
-          <a href="#contact" class="hover:text-blue-600">Contact</a>
-          <button class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">Sign In</button>
-        </nav>
-      </div>
-    </header>
+<div>
+  <app-navbar></app-navbar>
+</div>
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-blue-900 to-90% text-white py-20">
-      <div class="container mx-auto text-center">
-        <h1 class="text-4xl font-bold mb-4">Simplify Your Financial Management</h1>
-        <p class="s-title  my-6">Manage transactions, evaluate credit risk, and grow portfolios effortlessly with FintechPro.</p>
-        <button class="px-6 py-3 bg-white text-blue-600 font-semibold rounded-md shadow-lg hover:bg-gray-100 transition">Get Started</button>
-      </div>
-    </section>
+<div class="bg-gray-50 text-gray-800 min-h-screen">
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-indigo-500 via-sky-500 to-blue-900 text-white py-24">
+    <div class="container mx-auto text-center px-6 md:px-12">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+        Simplify Your Financial Management
+      </h1>
+      <p class="text-lg md:text-2xl mb-10 max-w-2xl mx-auto">
+        Manage transactions, evaluate credit risk, and grow portfolios effortlessly with FintechPro.
+      </p>
+      <button class="px-8 py-3 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:bg-gray-100 transition text-lg">
+        Get Started
+      </button>
+    </div>
+  </section>
 
-    <!-- Features Section -->
-    <section id="features" class="py-20 bg-gray-100">
-      <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-bold text-gray-800 mb-12">Our Features</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Feature 1 -->
-          <div class="bg-white p-6 rounded-lg shadow-lg">
-            <img src="assets/trans.png" alt="Transactions" class="w-16 mx-auto mb-4">
-            <h3 class="text-xl font-semibold mb-2">Seamless Transactions</h3>
-            <p class="text-gray-600">Track and manage all your financial transactions in one place.</p>
+  <!-- Features Section -->
+  <section id="features" class="py-20 bg-gray-100">
+    <div class="container mx-auto text-center px-6 md:px-12">
+      <h2 class="text-4xl font-bold text-gray-800 mb-12">
+        Our Features
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+        <!-- Feature 1 -->
+        <div class="card bg-white rounded-lg shadow-lg hover:shadow-2xl transition">
+          <figure class="px-10 pt-10">
+            <img
+              src="trans.png"
+              alt="Seamless Transactions"
+              class="rounded-xl w-80 h-40 object-cover"
+            />
+          </figure>
+          <div class="card-body items-center text-center p-6">
+            <h3 class="card-title text-2xl font-semibold mb-4">
+              Seamless Transactions
+            </h3>
+            <p class="text-gray-600 mb-6">
+              Track and manage all your financial transactions in one place.
+            </p>
+            <button class="btn btn-primary bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full">
+              Learn More
+            </button>
           </div>
-          <!-- Feature 2 -->
-          <div class="bg-white p-6 rounded-lg shadow-lg">
-            <img src="assets/risk.jpeg" alt="Credit Risk" class="w-16 mx-auto mb-4">
-            <h3 class="text-xl font-semibold mb-2">Credit Risk Evaluation</h3>
-            <p class="text-gray-600">Advanced algorithms to evaluate credit risk with precision.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="card bg-white rounded-lg shadow-lg hover:shadow-2xl transition">
+          <figure class="px-10 pt-10">
+            <img
+              src="risk.jpeg"
+              alt="Credit Risk Evaluation"
+              class="rounded-xl w-80 h-40 object-cover"
+            />
+          </figure>
+          <div class="card-body items-center text-center p-6">
+            <h3 class="card-title text-2xl font-semibold mb-4">
+              Credit Risk Evaluation
+            </h3>
+            <p class="text-gray-600 mb-6">
+              Advanced algorithms to evaluate credit risk with precision.
+            </p>
+            <button class="btn btn-primary bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full">
+              Learn More
+            </button>
           </div>
-          <!-- Feature 3 -->
-          <div class="bg-white p-6 rounded-lg shadow-lg">
-            <img src="assets/portfolio.jpeg" alt="Portfolio Management" class="w-16 mx-auto mb-4">
-            <h3 class="text-xl font-semibold mb-2">Portfolio Management</h3>
-            <p class="text-gray-600">Optimize your investments with tailored portfolio management tools.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="card bg-white rounded-lg shadow-lg hover:shadow-2xl transition">
+          <figure class="px-10 pt-10">
+            <img
+              src="portfolio.jpeg"
+              alt="Portfolio Management"
+              class="rounded-xl w-80 h-40 object-cover"
+            />
+          </figure>
+          <div class="card-body items-center text-center p-6">
+            <h3 class="card-title text-2xl font-semibold mb-4">
+              Portfolio Management
+            </h3>
+            <p class="text-gray-600 mb-6">
+              Optimize your investments with tailored portfolio management tools.
+            </p>
+            <button class="btn btn-primary bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full">
+              Learn More
+            </button>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Stats Section -->
-    <section id="about" class="bg-blue-50 py-20">
-      <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-bold text-gray-800 mb-12">Why Choose Us?</h2>
-        <div class="flex flex-wrap justify-center gap-12">
-          <!-- Stat 1 -->
-          <div class="text-center">
-            <h3 class="text-4xl font-bold text-blue-600 mb-2">10M+</h3>
-            <p class="text-gray-600">Transactions Processed</p>
-          </div>
-          <!-- Stat 2 -->
-          <div class="text-center">
-            <h3 class="text-4xl font-bold text-blue-600 mb-2">99.9%</h3>
-            <p class="text-gray-600">Uptime Guarantee</p>
-          </div>
-          <!-- Stat 3 -->
-          <div class="text-center">
-            <h3 class="text-4xl font-bold text-blue-600 mb-2">100k+</h3>
-            <p class="text-gray-600">Satisfied Clients</p>
-          </div>
+  <!-- Stats Section -->
+  <section id="about" class="bg-blue-50 py-20">
+    <div class="container mx-auto text-center px-6 md:px-12">
+      <h2 class="text-4xl font-bold text-gray-800 mb-12">
+        Why Choose Us?
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+        <!-- Stat 1 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+          <h3 class="text-5xl font-bold text-blue-600 mb-4">10M+</h3>
+          <p class="text-gray-600 text-lg">Transactions Processed</p>
+        </div>
+        <!-- Stat 2 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+          <h3 class="text-5xl font-bold text-blue-600 mb-4">99.9%</h3>
+          <p class="text-gray-600 text-lg">Uptime Guarantee</p>
+        </div>
+        <!-- Stat 3 -->
+        <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+          <h3 class="text-5xl font-bold text-blue-600 mb-4">100k+</h3>
+          <p class="text-gray-600 text-lg">Satisfied Clients</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
+</div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-      <div class="container mx-auto flex justify-between items-center">
-        <p class="text-sm">&copy; 2024 FintechPro. All rights reserved.</p>
-        <nav class="space-x-4">
-          <a href="#" class="hover:underline">Privacy Policy</a>
-          <a href="#" class="hover:underline">Terms of Service</a>
-        </nav>
-      </div>
-    </footer>
-  </div>
+<div>
+  <app-footer></app-footer>
+</div>
