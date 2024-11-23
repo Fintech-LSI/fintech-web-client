@@ -15,4 +15,5 @@ export class DashboardComponent {
     // Redirect to login page
     this.router.navigate(['/login']);
   }
+
 }

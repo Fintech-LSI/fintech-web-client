@@ -8,6 +8,7 @@ import { ActivityComponent } from './components/activity/activity.component';
 import { StocksComponent } from './components/stocks/stocks.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
+import {PortfolioComponent} from './components/portfolio/portfolio.component';
 
 const routes: Routes = [
 
@@ -18,11 +19,12 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
-      { path: '', redirectTo: 'transactions', pathMatch: 'full' },
+      { path: '', redirectTo: 'portfolio', pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },
       { path: 'transactions', component: TransactionsComponent },
       { path: 'stocks', component: StocksComponent },
       { path: 'activity', component: ActivityComponent },
+      { path: 'portfolio', component: PortfolioComponent },
     ],
   },
 ];

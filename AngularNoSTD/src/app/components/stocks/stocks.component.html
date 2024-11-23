@@ -1,28 +1,28 @@
 <section class="space-y-8">
-    <h2 class="text-3xl font-semibold text-gray-800 mb-4">Stock Market</h2>
-  
+    <h2 class="text-3xl font-semibold   mb-4">Stock Market</h2>
+
     <!-- Stock Table -->
-    <div class="bg-white p-6 rounded-lg shadow-lg">
+    <div class="card card-body bg-base-100 rounded-lg">
       <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-semibold text-gray-800">Stocks Overview</h3>
-  
+        <h3 class="text-xl font-semibold  ">Stocks Overview</h3>
+
         <!-- Filter Options -->
-        <div class="flex items-center space-x-4">
-          <select class="p-3 border rounded-md text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <div class=" flex items-center space-x-4">
+          <select class=" select border border-base-300 focus:outline-blue-500">
             <option value="all">All Stocks</option>
             <option value="rising">Rising Stocks</option>
             <option value="falling">Falling Stocks</option>
           </select>
-          <button class="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
+          <button class="btn btn-primary ">
             Filter
           </button>
         </div>
       </div>
-  
+
       <!-- Table -->
       <table class="w-full table-auto text-sm">
         <thead>
-          <tr class="bg-gray-100">
+          <tr class=" ">
             <th class="py-3 px-4 text-left">Stock</th>
             <th class="py-3 px-4 text-left">Price</th>
             <th class="py-3 px-4 text-left">Risk</th>
@@ -32,7 +32,7 @@
         </thead>
         <tbody>
           <!-- Static Data Example -->
-          <tr class="hover:bg-gray-50">
+          <tr class="hover:bg-base-200">
             <td class="py-3 px-4 flex items-center space-x-2">
               <img src="apple.jpeg" alt="Apple Logo" class="w-8 h-8"/>
               <span>Apple (AAPL)</span>
@@ -46,7 +46,7 @@
               </button>
             </td>
           </tr>
-          <tr class="hover:bg-gray-50">
+          <tr class="hover:bg-base-200">
             <td class="py-3 px-4 flex items-center space-x-2">
               <img src="google.png" alt="Google Logo" class="w-8 h-8"/>
               <span>Google (GOOGL)</span>
@@ -60,7 +60,7 @@
               </button>
             </td>
           </tr>
-          <tr class="hover:bg-gray-50">
+          <tr class="hover:bg-base-200">
             <td class="py-3 px-4 flex items-center space-x-2">
               <img src="microsoft.png" alt="Microsoft Logo" class="w-8 h-8"/>
               <span>Microsoft (MSFT)</span>
@@ -77,25 +77,25 @@
         </tbody>
       </table>
     </div>
-  
+
     <!-- Stock Chart Preview -->
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-      <h3 class="text-xl font-semibold text-gray-800 mb-4">Stock Chart</h3>
+    <div class="card card-body bg-base-100 rounded-lg">
+      <h3 class="text-xl font-semibold   mb-4">Stock Chart</h3>
       <div class="flex justify-between items-center mb-6">
-        <p class="text-sm text-gray-600">Price Trend of Microsoft (MSFT)</p>
+        <p class="text-sm  ">Price Trend of Microsoft (MSFT)</p>
         <button class="px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
           View Full Chart
         </button>
       </div>
       <!-- Static Placeholder for Stock Chart -->
-      <div class="w-full bg-gray-100 h-40 rounded-lg flex justify-center items-center text-gray-500">
+      <div class="w-full bg-base-200 h-40 rounded-lg flex justify-center items-center text-gray-500">
         <span>Chart Preview</span>
       </div>
     </div>
-  
+
     <!-- Stock News Section -->
-    <div class="bg-white p-6 rounded-lg shadow-lg">
-      <h3 class="text-xl font-semibold text-gray-800 mb-4">Latest Stock News</h3>
+    <div class="card card-body bg-base-100 rounded-lg">
+      <h3 class="text-xl font-semibold   mb-4">Latest Stock News</h3>
       <ul class="space-y-4">
         <li class="flex items-center">
           <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center">
@@ -118,4 +118,3 @@
       </ul>
     </div>
   </section>
-  
