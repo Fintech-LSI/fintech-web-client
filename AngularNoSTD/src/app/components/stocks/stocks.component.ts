@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FinnhubService } from "../../services/finnhub.service";
+import { FinnhubService } from "../../services/finnhub/finnhub.service";
 import {
   ApexAxisChartSeries,
   ApexChart,

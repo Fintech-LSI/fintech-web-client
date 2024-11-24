@@ -18,7 +18,7 @@ export class FinnhubService {
       .set('from', from)
       .set('to', to)
       .set('token', this.apiKey); // Use your Finnhub API key
-  
+
     return this.http.get(`${this.baseUrl}/company-news`, { params });
   }
 }
