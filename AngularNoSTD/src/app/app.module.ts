@@ -17,6 +17,7 @@ import { ActivityComponent } from './components/activity/activity.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { NgApexchartsModule } from 'ng-apexcharts'; // Correct import for NgApexchartsModule
 import { FormsModule } from '@angular/forms';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { HttpClientModule } from '@angular/common/http';
 import { StockchartComponent } from './components/stockchart/stockchart.component';
@@ -46,7 +47,8 @@ import { StockchartComponent } from './components/stockchart/stockchart.componen
     HttpClientModule,
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })
