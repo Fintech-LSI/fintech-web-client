@@ -9,6 +9,7 @@ import { StocksComponent } from './components/stocks/stocks.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import {PortfolioComponent} from './components/portfolio/portfolio.component';
+import {StockchartComponent} from './components/stockchart/stockchart.component';
 
 const routes: Routes = [
 
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'stocks', component: StocksComponent },
       { path: 'activity', component: ActivityComponent },
       { path: 'portfolio', component: PortfolioComponent },
+      { path: 'stockchart', component: StockchartComponent },
     ],
   },
 ];
