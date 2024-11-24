@@ -15,6 +15,8 @@ import { TransactionsComponent } from './components/transactions/transactions.co
 import { StocksComponent } from './components/stocks/stocks.component';
 import { ActivityComponent } from './components/activity/activity.component';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
+import { NgApexchartsModule } from 'ng-apexcharts'; // Correct import for NgApexchartsModule
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,12 +31,14 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
     TransactionsComponent,
     StocksComponent,
     ActivityComponent,
-    PortfolioComponent
+    PortfolioComponent,
   ],
   imports: [
     BrowserModule,
     FontAwesomeModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgApexchartsModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration()

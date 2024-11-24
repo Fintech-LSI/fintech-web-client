@@ -81,40 +81,60 @@
     <!-- Stock Chart Preview -->
     <div class="card card-body bg-base-100 rounded-lg">
       <h3 class="text-xl font-semibold   mb-4">Stock Chart</h3>
+
+      <!-- Search Stock -->
+      <div class="mb-6">
+        <label class="block text-gray-700 mb-2" for="search-stock">
+          Search Stock
+        </label>
+        <input class="w-full p-3 border rounded-md text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500" id="search-stock" placeholder="Enter stock symbol (e.g., AAPL, GOOGL)" type="text"/>
+      </div>
+
       <div class="flex justify-between items-center mb-6">
         <p class="text-sm  ">Price Trend of Microsoft (MSFT)</p>
         <button class="px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700 transition">
           View Full Chart
         </button>
       </div>
+
+
       <!-- Static Placeholder for Stock Chart -->
-      <div class="w-full bg-base-200 h-40 rounded-lg flex justify-center items-center text-gray-500">
-        <span>Chart Preview</span>
+      <div class="w-full bg-base-200  rounded-lg flex justify-center items-center text-gray-500 overflow-hidden">
+        <!--The content below is only a placeholder and can be replaced.-->
+
+        <div class="w-full bg-white">
+          <div id="chart">
+            <apx-chart
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [xaxis]="chartOptions.xaxis"
+              [dataLabels]="chartOptions.dataLabels"
+              [grid]="chartOptions.grid"
+              [stroke]="chartOptions.stroke"
+              [title]="chartOptions.title">
+            </apx-chart>
+          </div>
+
+        </div>
+
       </div>
     </div>
 
     <!-- Stock News Section -->
-    <div class="card card-body bg-base-100 rounded-lg">
-      <h3 class="text-xl font-semibold   mb-4">Latest Stock News</h3>
-      <ul class="space-y-4">
-        <li class="flex items-center">
-          <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center">
-            <i class="fas fa-bullhorn"></i>
-          </div>
-          <div class="ml-4">
-            <a href="#" class="text-blue-600 hover:underline">Apple's New iPhone 15 Launch Boosts Stock</a>
-            <p class="text-sm text-gray-500">Nov 19, 2024</p>
-          </div>
-        </li>
-        <li class="flex items-center">
-          <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center">
-            <i class="fas fa-bullhorn"></i>
-          </div>
-          <div class="ml-4">
-            <a href="#" class="text-blue-600 hover:underline">Microsoft Shares Soar After New AI Investment</a>
-            <p class="text-sm text-gray-500">Nov 18, 2024</p>
-          </div>
-        </li>
-      </ul>
-    </div>
+  <div class="card card-body bg-base-100 rounded-lg">
+    <h3 class="text-xl font-semibold mb-4">Latest Stock News</h3>
+    <ul class="space-y-4">
+      <li *ngFor="let newsItem of companyNews" class="flex items-center">
+        <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <div class="ml-4">
+          <a href="{{ newsItem.url }}" target="_blank" class="text-blue-600 hover:underline">
+            {{ newsItem.headline }}
+          </a>
+          <p class="text-sm text-gray-500">{{ newsItem.datetime | date }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
   </section>
