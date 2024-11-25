@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
   constructor(private router: Router) {}
 
+  b : boolean = false ;
+
   logOut() {
     // Perform any necessary cleanup like clearing tokens, user data, etc.
     console.log('User logged out');
