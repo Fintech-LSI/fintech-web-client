@@ -4,9 +4,7 @@
     <div class="col bg-base-100 cursor-pointer rounded-lg p-4 flex justify-between hover:shadow-[0_5px_0_0_rgba(0,50,255,0.76)]  hover:translate-y-[-5px] transition-transform duration-300">
       <div class="flex items-center">
         <div class="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bitcoin">
-            <path d="M19 7.5a4.5 4.5 0 0 1-4.5 4.5H9a3.75 3.75 0 0 0-3.75 3.75v3A1.25 1.25 0 0 0 5.25 20.25a1.25 1.25 0 0 0 1.25 1.25h11.5a1.25 1.25 0 0 0 1.25-1.25v-3A3.75 3.75 0 0 0 19 15.75h-4.5A4.5 4.5 0 0 1 19 7.5z"></path>
-          </svg>
+          <img src="https://cdn-icons-png.flaticon.com/512/1490/1490849.png"/>
         </div>
         <div class="ml-4">
           <h3 class="text-lg font-semibold">BTC</h3>
@@ -32,7 +30,7 @@
     <div class="col bg-base-100 cursor-pointer rounded-lg p-4 flex justify-between hover:shadow-[0_5px_0_0_rgba(0,50,255,0.76)] hover:translate-y-[-5px] transition-transform duration-300">
       <div class="flex items-center">
         <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-ethereum"><path d="M12 2l-10 18h20L12 2z"></path></svg>
+          <img src="https://www.iconarchive.com/download/i109534/cjdowner/cryptocurrency-flat/Ethereum-ETH.1024.png"/>
         </div>
         <div class="ml-4">
           <h3 class="text-lg font-semibold">ETH</h3>
@@ -56,7 +54,7 @@
     <div class="col bg-base-100 cursor-pointer rounded-lg p-4 flex justify-between hover:shadow-[0_5px_0_0_rgba(0,50,255,0.76)]  hover:translate-y-[-5px] ease transition-transform duration-300">
       <div class="flex items-center">
         <div class="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-litecoin"><path d="M6 6h12l-3 12H3l3-12z"></path></svg>
+          <img src="https://cryptologos.cc/logos/litecoin-ltc-logo.png"/>
         </div>
         <div class="ml-4">
           <h3 class="text-lg font-semibold">LTC</h3>
@@ -161,11 +159,12 @@
       </table>
     </div>
 
-    <!-- Stock Chart Preview -->
+  <!--
+
+
     <div class="card card-body bg-base-100 rounded-lg" >
       <h3 class="text-xl font-semibold   mb-4">Stock Chart</h3>
 
-      <!-- Search Stock -->
       <div class="mb-6">
         <label class="block  mb-2" for="search-stock">
           Search Stock
@@ -184,9 +183,7 @@
       </div>
 
 
-      <!-- Static Placeholder for Stock Chart -->
       <div class="w-full bg-base-200  rounded-lg flex flex-col justify-center items-center text-gray-500 overflow-hidden">
-        <!--The content below is only a placeholder and can be replaced.-->
 
         <div class="w-full bg-white">
           <div id="chart">
@@ -206,15 +203,21 @@
 
 
     </div>
-      <!-- AI Prediction Button -->
+
+
       <div class="mt-6 flex justify-center">
-        <a routerLink="/dashboard/stockchart" class="btn bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-full shadow-lg hover:from-blue-600 hover:to-purple-700 transition" target="_blank"  >
+        <a routerLink="/dashboard/predictions" class="btn bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-full shadow-lg hover:from-blue-600 hover:to-purple-700 transition"  >
           <i class="fas fa-robot mr-2">
           </i>
           Predict with AI
         </a>
       </div>
     </div>
+
+  -->
+  <div>
+    <app-stockchart></app-stockchart>
+  </div>
 
     <!-- Stock News Section -->
   <div class="card card-body bg-base-100 rounded-lg">

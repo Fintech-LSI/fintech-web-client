@@ -10,6 +10,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { TransactionsComponent } from './components/transactions/transactions.component';
 import {PortfolioComponent} from './components/portfolio/portfolio.component';
 import {StockchartComponent} from './components/stockchart/stockchart.component';
+import {PredictionsComponent} from './components/predictions/predictions.component';
 
 const routes: Routes = [
 
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: 'activity', component: ActivityComponent },
       { path: 'portfolio', component: PortfolioComponent },
       { path: 'stockchart', component: StockchartComponent },
+      { path: 'predictions', component: PredictionsComponent },
     ],
   },
 ];

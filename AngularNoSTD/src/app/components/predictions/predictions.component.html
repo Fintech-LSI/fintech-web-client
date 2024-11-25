@@ -1,0 +1,75 @@
+<div class="space-y-4 ">
+  <h2 class="text-xl font-semibold ">
+    Predictions
+  </h2>
+  <div class="card card-body bg-base-100 w-full rounded-lg">
+    <h2 class="card-title mb-2">
+      Symbol
+    </h2>
+    <form (ngSubmit)="updatePar(pp)" class="w-full flex gap-4">
+
+      <input id="symbol" type="text" [(ngModel)]="pp" name="symbol" class="input w-full border border-base-300" />
+
+      <input type="submit" value="Submit" class="btn btn-primary" />
+    </form>
+  </div>
+
+  <div class="card card-body bg-base-100 rounded-lg">
+    <div class="card-header">
+      <h2 class="card-title">Line Chart </h2>
+    </div>
+    <div
+      (wheel)="preventScroll($event)"
+      (touchmove)="preventScroll($event)"
+      class="card-body bg-white rounded-md ">
+      <apx-chart
+        [series]="lineChartOptions.series!"
+        [chart]="lineChartOptions.chart!"
+        [xaxis]="lineChartOptions.xaxis!"
+        [stroke]="lineChartOptions.stroke!"
+        [dataLabels]="lineChartOptions.dataLabels!"
+        [fill]="lineChartOptions.fill!"
+        [tooltip]="lineChartOptions.tooltip!"
+      ></apx-chart>
+    </div>
+  </div>
+
+
+  <!--
+    <div class="card card-body bg-base-100 w-full rounded-lg">
+      <h2 class="card-title mb-2">
+        Filter
+      </h2>
+      <form (ngSubmit)="getPredictions()">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" [(ngModel)]="startDate" name="startDate">
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" [(ngModel)]="endDate" name="endDate">
+
+        <input type="submit" value="Filter" class="btn btn-primary" />
+      </form>
+    </div>
+  -->
+
+
+  <div class="card card-body bg-base-100 rounded-lg">
+    <div class="card-header">
+      <h2 class="card-title">Prediction Chart</h2>
+    </div>
+    <div class="card-body bg-white rounded-md"
+         (wheel)="preventScroll($event)"
+         (touchmove)="preventScroll($event)"
+    >
+      <apx-chart
+        [series]="predictionChartOptions.series!"
+        [chart]="predictionChartOptions.chart!"
+        [xaxis]="predictionChartOptions.xaxis!"
+        [stroke]="predictionChartOptions.stroke!"
+        [dataLabels]="predictionChartOptions.dataLabels!"
+        [fill]="predictionChartOptions.fill!"
+        [tooltip]="predictionChartOptions.tooltip!"
+      ></apx-chart>
+    </div>
+  </div>
+</div>

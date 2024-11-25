@@ -21,6 +21,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 
 import { HttpClientModule } from '@angular/common/http';
 import { StockchartComponent } from './components/stockchart/stockchart.component';
+import { PredictionsComponent } from './components/predictions/predictions.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { StockchartComponent } from './components/stockchart/stockchart.componen
     ActivityComponent,
     PortfolioComponent,
     StockchartComponent,
+    PredictionsComponent,
   ],
   imports: [
     BrowserModule,
