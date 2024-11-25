@@ -1,7 +1,7 @@
 
 <div class="min-h-screen flex flex-col">
   <!-- Header -->
-  <header class="bg-base-100 shadow fixed top-0 left-0 w-full z-10">
+  <header class="bg-base-100 shadow fixed top-0 left-0 w-full z-20">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <div class="text-2xl font-semibold text-gray-800">
         FinTech
@@ -50,7 +50,7 @@
   <!-- Main Content -->
   <div class=" ">
     <!-- Sidebar -->
-    <aside class="w-64 bg-base-100 shadow-md fixed top-0 left-0 h-full z-10 overflow-auto">
+    <aside class="w-64 bg-base-100 shadow-md fixed top-0 left-0 h-full z-20 overflow-auto">
       <div class="p-6">
 
         <div class="w-full flex justify-center py-6">
@@ -86,8 +86,17 @@
         </span>
           </a>
 
+          <a routerLink="/dashboard/predictions" class="flex items-center   p-2 rounded hover:bg-base-300" >
+            <i class="fas fa-robot mr-3">
+            </i>
+            <span>
+         Predictions
+        </span>
+          </a>
+
           <a routerLink="/dashboard/activity" class="flex items-center   p-2 rounded hover:bg-base-300" >
-            <i class="fas fa-chart-line mr-3">
+            <i class="fa-solid fa-file-invoice">
+              
             </i>
             <span>
          Activity

@@ -13,7 +13,8 @@ import {
   ApexTooltip,
   ChartComponent
 } from "ng-apexcharts";
-import {StocksService} from '../../services/stocks/stocks.service';
+import { StocksService } from '../../services/stocks/stocks.service';
+import { finalize } from 'rxjs/operators';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -30,11 +31,11 @@ export type ChartOptions = {
 };
 
 @Component({
-  selector: 'app-stockchart',
-  templateUrl: './stockchart.component.html',
-  styleUrl: './stockchart.component.scss'
+  selector: 'app-predictions',
+  templateUrl: './predictions.component.html',
+  styleUrl: './predictions.component.scss'
 })
-export class StockchartComponent implements OnInit{
+export class PredictionsComponent implements OnInit {
   @ViewChild("lineChart") lineChart!: ChartComponent;
   @ViewChild("predictionChart") predictionChart!: ChartComponent;
 
@@ -107,23 +108,82 @@ export class StockchartComponent implements OnInit{
       }
     };
 
+    this.predictionChartOptions = {
+      series: [
+        {
+          name: "Actual Closing Price",
+          data: [],
+          color: '#2E93fA'  // Blue color for actual prices
+        },
+        {
+          name: "Predicted Price",
+          data: [],
+          color: '#66DA26'  // Green color for predictions
+        }
+      ],
+      chart: {
+        type: "line",
+        height: 350,
+        animations: {
+          enabled: true,
+          speed: 800,
+          animateGradually: {
+            enabled: true,
+            delay: 150
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350
+          }
+        }
+      },
+      stroke: {
+        width: [2, 2],
+        curve: "smooth",
+        dashArray: [0, 5]
+      },
+      fill: {
+        opacity: 1
+      },
+      xaxis: {
+        type: "datetime"
+      },
+      tooltip: {
+        x: {
+          format: "dd MMM yyyy"
+        }
+      }
+    };
   }
   ngOnInit(): void {
     this.getClose();
+    this.getPredictions();
   }
 
   updatePar(p: string) {
     this.par = { symbol: p };
     this.getClose();
+    this.getPredictions();
   }
 
   getClose() {
     this.stocksService.getData(this.par).subscribe((res: any) => {
-      this.data = res.slice(-60);
+      this.data = res;
       this.updateLineChart();
     });
   }
 
+  getPredictions() {
+    this.stocksService.getPredictions(this.par).subscribe((res: any) => {
+      this.predictionData = res.filter((item: any) => {
+        const itemDate = new Date(item.Date);
+        const start = this.startDate ? new Date(this.startDate) : new Date(0);
+        const end = this.endDate ? new Date(this.endDate) : new Date();
+        return itemDate >= start && itemDate <= end;
+      });
+      this.updatePredictionChart();
+    });
+  }
 
   updateLineChart(): void {
     const filteredData = this.data.filter(item => {
@@ -144,4 +204,26 @@ export class StockchartComponent implements OnInit{
     }];
   }
 
+  updatePredictionChart(): void {
+    const actualData = this.predictionData.map(item => ({
+      x: new Date(item.Date).getTime(),
+      y: item.Close
+    }));
+
+    const predictedData = this.predictionData.map(item => ({
+      x: new Date(item.Date).getTime(),
+      y: item.Predictions
+    }));
+
+    this.predictionChartOptions.series = [
+      {
+        name: "Actual Closing Price",
+        data: actualData
+      },
+      {
+        name: "Predicted Price",
+        data: predictedData
+      }
+    ];
+  }
 }
