@@ -1,0 +1,39 @@
+<div class="space-y-4 ">
+  <div class="card card-body bg-base-100 w-full rounded-lg">
+    <h6 class="card-title mb-2">
+      Stock Chart
+    </h6>
+    <label for="symbol" > Search Stock </label>
+    <form (ngSubmit)="updatePar(pp)" class="w-full flex gap-4">
+      <input id="symbol" type="text" [(ngModel)]="pp" name="symbol" class="w-full input border border-base-300 focus:outline-blue-500" />
+
+      <input type="submit" value="Search" class="btn btn-primary" />
+    </form>
+
+    <div
+      (wheel)="preventScroll($event)"
+      (touchmove)="preventScroll($event)"
+      class="card-body bg-white rounded-md ">
+      <apx-chart
+        [series]="lineChartOptions.series!"
+        [chart]="lineChartOptions.chart!"
+        [xaxis]="lineChartOptions.xaxis!"
+        [stroke]="lineChartOptions.stroke!"
+        [dataLabels]="lineChartOptions.dataLabels!"
+        [fill]="lineChartOptions.fill!"
+        [tooltip]="lineChartOptions.tooltip!"
+      ></apx-chart>
+    </div>
+    <!-- AI Prediction Button -->
+    <div class="mt-6 flex justify-center">
+      <a routerLink="/dashboard/predictions" class="btn bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-full shadow-lg hover:from-blue-600 hover:to-purple-700 transition"  >
+        <i class="fas fa-robot mr-2">
+        </i>
+        Predict with AI
+      </a>
+    </div>
+
+  </div>
+
+
+</div>

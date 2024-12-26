@@ -1,0 +1,155 @@
+<section class="space-y-4 ">
+  <h2 class="text-xl font-semibold    ">Transactions</h2>
+
+  <div class="flex-1 card bg-base-100 rounded-lg ">
+    <div class="card-body">
+      <h2 class="text-xl font-semibold   mb-4">
+        Virement
+      </h2>
+      <form>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block  " for="from-account">
+              From Account
+            </label>
+            <select class="border  border-base-300 select w-full mt-2 focus:outline-blue-500  " id="from-account" name="from-account">
+              <option>
+                Checking Account - $10,000
+              </option>
+              <option>
+                Savings Account - $5,000
+              </option>
+            </select>
+          </div>
+          <div>
+            <label class="block  " for="to-account">
+              To Account
+            </label>
+            <select class="border  border-base-300 select w-full mt-2 focus:outline-blue-500" id="to-account" name="to-account">
+              <option>
+                Checking Account - $10,000
+              </option>
+              <option>
+                Savings Account - $5,000
+              </option>
+            </select>
+          </div>
+          <div>
+            <label class="block  " for="amount">
+              Amount
+            </label>
+            <input class="input border border-base-300 w-full mt-2 focus:outline-blue-500 " id="amount" name="amount" type="number"/>
+          </div>
+          <div>
+            <label class="block  " for="description">
+              Description
+            </label>
+            <input class="input border border-base-300 w-full mt-2 focus:outline-blue-500 " id="description" name="description" type="text"/>
+          </div>
+        </div>
+        <div class="mt-6">
+          <button class="btn btn-primary " type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Transaction History -->
+  <main class="flex-1 ">
+    <div class="card card-body bg-base-100">
+      <h2 class="text-xl font-semibold   mb-4">
+        Transactions
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full ">
+          <thead>
+          <tr>
+            <th class="py-2 px-4 border-b-2     text-left text-sm font-semibold   uppercase tracking-wider">
+              Date
+            </th>
+            <th class="py-2 px-4 border-b-2     text-left text-sm font-semibold   uppercase tracking-wider">
+              Description
+            </th>
+            <th class="py-2 px-4 border-b-2     text-left text-sm font-semibold   uppercase tracking-wider">
+              Amount
+            </th>
+            <th class="py-2 px-4 border-b-2     text-left text-sm font-semibold   uppercase tracking-wider">
+              Status
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td class="py-2 px-4 border-b  ">
+              2023-10-01
+            </td>
+            <td class="py-2 px-4 border-b  -200">
+              Grocery Shopping
+            </td>
+            <td class="py-2 px-4 border-b  ">
+              -$150.00
+            </td>
+            <td class="py-2 px-4 border-b  ">
+           <span class="text-red-500">
+            Completed
+           </span>
+            </td>
+          </tr>
+          <tr>
+            <td class="py-2 px-4 border-b  ">
+              2023-10-02
+            </td>
+            <td class="py-2 px-4 border-b  ">
+              Salary
+            </td>
+            <td class="py-2 px-4 border-b  ">
+              +$3,000.00
+            </td>
+            <td class="py-2 px-4 border-b  ">
+           <span class="text-green-500">
+            Completed
+           </span>
+            </td>
+          </tr>
+          <tr>
+            <td class="py-2 px-4 border-b  ">
+              2023-10-03
+            </td>
+            <td class="py-2 px-4 border-b  ">
+              Utility Bill
+            </td>
+            <td class="py-2 px-4 border-b  ">
+              -$200.00
+            </td>
+            <td class="py-2 px-4 border-b  ">
+           <span class="text-red-500">
+            Completed
+           </span>
+            </td>
+          </tr>
+          <tr>
+            <td class="py-2 px-4 border-b  ">
+              2023-10-04
+            </td>
+            <td class="py-2 px-4 border-b border-gray-200">
+              Stock Purchase
+            </td>
+            <td class="py-2 px-4 border-b border-gray-200">
+              -$1,000.00
+            </td>
+            <td class="py-2 px-4 border-b border-gray-200">
+           <span class="text-red-500">
+            Completed
+           </span>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</section>

@@ -1,0 +1,64 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100 relative">
+  <!-- Return to Home Button -->
+  <button (click)="goHome()" class="absolute top-4 left-4 bg-white p-2 rounded-full shadow-md hover:bg-gray-200 focus:outline-none">
+    <fa-icon [icon]="faHome" class="text-gray-800"></fa-icon>
+  </button>
+
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Create an Account</h2>
+
+    <!-- Register Form -->
+    <form class="space-y-6">
+      <div>
+        <label for="email" class="block text-gray-700 font-medium">Email Address</label>
+        <input
+          id="email"
+          type="email"
+          class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter your email"
+        />
+      </div>
+
+      <div>
+        <label for="password" class="block text-gray-700 font-medium">Password</label>
+        <input
+          id="password"
+          type="password"
+          class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <div>
+        <label for="confirm-password" class="block text-gray-700 font-medium">Confirm Password</label>
+        <input
+          id="confirm-password"
+          type="password"
+          class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Confirm your password"
+        />
+      </div>
+
+      <div class="flex justify-between items-center">
+        <label class="inline-flex items-center text-sm text-gray-600">
+          <input type="checkbox" class="form-checkbox text-blue-500" />
+          <span class="ml-2">I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a></span>
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+      >
+        Sign Up
+      </button>
+    </form>
+
+    <div class="mt-4 text-center">
+      <p class="text-sm text-gray-600">
+        Already have an account?
+        <a href="/login" class="text-blue-600 hover:underline">Log in here</a>
+      </p>
+    </div>
+  </div>
+</div>

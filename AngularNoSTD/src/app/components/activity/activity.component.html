@@ -1,0 +1,87 @@
+<section class="space-y-8">
+    <h2 class="text-xl font-semibold ">Activity</h2>
+
+    <!-- Search and Filter -->
+    <div class="card card-body rounded-lg bg-base-100">
+      <div class="flex items-center space-x-4 mb-6">
+        <!-- Search Input -->
+        <div class="flex-1">
+          <input
+            type="text"
+            placeholder="Search Transactions..."
+            class="input w-full  border border-base-300 focus:outline-blue-500 "
+          />
+        </div>
+
+        <!-- Filter Options -->
+        <div class="flex space-x-4">
+          <select class="select w-full  border border-base-300 focus:outline-blue-500">
+            <option value="all">All Transactions</option>
+            <option value="payments">Payments</option>
+            <option value="deposits">Deposits</option>
+            <option value="withdrawals">Withdrawals</option>
+          </select>
+          <select class="select w-full  border border-base-300 focus:outline-blue-500">
+            <option value="last7days">Last 7 Days</option>
+            <option value="last30days">Last 30 Days</option>
+            <option value="all">All Time</option>
+          </select>
+          <button class="btn btn-primary">
+            Filter
+          </button>
+        </div>
+      </div>
+
+      <!-- Activity List -->
+      <ul class="space-y-4">
+        <li class=" card card-body bg-base-300 transition">
+          <div class="flex justify-between">
+
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-arrow-down text-red-500"></i>
+            <div>
+              <span class="font-semibold  ">Payment to John</span>
+              <p class="text-sm text-gray-600">Nov 19, 2024</p>
+            </div>
+          </div>
+          <span class="text-red-500">- $250.00</span>
+          </div>
+        </li>
+
+        <li class=" card card-body bg-base-300 transition">
+          <div class="flex justify-between">
+            <div class="flex items-center space-x-4">
+              <i class="fas fa-arrow-up text-green-500"></i>
+              <div>
+                <span class="font-semibold  ">Deposit from PayPal</span>
+                <p class="text-sm text-gray-600">Nov 18, 2024</p>
+              </div>
+            </div>
+            <span class="text-green-500">+ $500.00</span>
+          </div>
+        </li>
+
+        <li class=" card card-body bg-base-300 transition">
+          <div class="flex justify-between">
+            <div class="flex items-center space-x-4">
+              <i class="fas fa-arrow-down text-red-500"></i>
+              <div>
+                <span class="font-semibold  ">Payment to Sarah</span>
+                <p class="text-sm text-gray-600">Nov 17, 2024</p>
+              </div>
+            </div>
+            <span class="text-red-500">- $120.00</span>
+          </div>
+        </li>
+
+        <!-- More transactions here -->
+      </ul>
+
+      <!-- Pagination or Load More Button -->
+      <div class="flex justify-center mt-6">
+        <button class="btn btn-primary">
+          Load More
+        </button>
+      </div>
+    </div>
+  </section>

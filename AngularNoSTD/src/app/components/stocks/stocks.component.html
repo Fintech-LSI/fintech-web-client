@@ -1,0 +1,257 @@
+<section class="space-y-8">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
+    <!-- Bitcoin Card -->
+    <div class="col bg-base-100 cursor-pointer rounded-lg p-4 flex justify-between hover:shadow-[0_5px_0_0_rgba(0,50,255,0.76)]  hover:translate-y-[-5px] transition-transform duration-300">
+      <div class="flex items-center">
+        <div class="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/1490/1490849.png"/>
+        </div>
+        <div class="ml-4">
+          <h3 class="text-lg font-semibold">BTC</h3>
+          <p class="text-sm text-gray-400">Bitcoin</p>
+        </div>
+      </div>
+      <div *ngIf="data?.data">
+        <div class="text-right" *ngFor="let item of data.data">
+          <h3 class="text-4xl font-bold">{{ item.s == "BINANCE:BTCUSDT" && item.p }}</h3>
+          <p
+            class="text-sm"
+            [ngClass]="{
+            'text-red-500': priceChange < 0 || percentageChange < 0,
+            'text-green-500': priceChange >= 0 || percentageChange >= 0
+          }">
+            {{ priceChange | number:'1.2-2' }} ({{ percentageChange | number:'1.2-2' }}%) 1D
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col bg-base-100 cursor-pointer rounded-lg p-4 flex justify-between hover:shadow-[0_5px_0_0_rgba(0,50,255,0.76)] hover:translate-y-[-5px] transition-transform duration-300">
+      <div class="flex items-center">
+        <div class="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center">
+          <img src="https://www.iconarchive.com/download/i109534/cjdowner/cryptocurrency-flat/Ethereum-ETH.1024.png"/>
+        </div>
+        <div class="ml-4">
+          <h3 class="text-lg font-semibold">ETH</h3>
+          <p class="text-sm text-gray-400">Ethereum</p>
+        </div>
+      </div>
+      <div *ngIf="data?.data">
+        <div class="text-right" *ngFor="let item of data.data">
+          <h3 class="text-4xl font-bold">{{ item.s == "ETH" && item.p || 0 }}</h3>
+          <p
+            class="text-sm"
+            [ngClass]="{
+            'text-red-500': priceChange < 0 || percentageChange < 0,
+            'text-green-500': priceChange >= 0 || percentageChange >= 0
+          }">
+            {{ priceChange | number:'1.2-2' }} ({{ percentageChange | number:'1.2-2' }}%) 1D
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col bg-base-100 cursor-pointer rounded-lg p-4 flex justify-between hover:shadow-[0_5px_0_0_rgba(0,50,255,0.76)]  hover:translate-y-[-5px] ease transition-transform duration-300">
+      <div class="flex items-center">
+        <div class="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center">
+          <img src="https://cryptologos.cc/logos/litecoin-ltc-logo.png"/>
+        </div>
+        <div class="ml-4">
+          <h3 class="text-lg font-semibold">LTC</h3>
+          <p class="text-sm text-gray-400">Litecoin</p>
+        </div>
+      </div>
+      <div *ngIf="data?.data">
+        <div class="text-right" *ngFor="let item of data.data">
+          <h3 class="text-4xl font-bold">{{ item.s == "ETH" && item.p || 0 }}</h3>
+          <p
+            class="text-sm"
+            [ngClass]="{
+            'text-red-500': priceChange < 0 || percentageChange < 0,
+            'text-green-500': priceChange >= 0 || percentageChange >= 0
+          }">
+            {{ priceChange | number:'1.2-2' }} ({{ percentageChange | number:'1.2-2' }}%) 1D
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+    <h2 class="text-xl font-semibold   ">Stock Market</h2>
+
+    <!-- Stock Table -->
+    <div class="card card-body bg-base-100 rounded-lg">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-semibold  ">Stocks Overview</h3>
+
+        <!-- Filter Options -->
+        <div class=" flex items-center space-x-4">
+          <select class=" select border border-base-300 focus:outline-blue-500">
+            <option value="all">All Stocks</option>
+            <option value="rising">Rising Stocks</option>
+            <option value="falling">Falling Stocks</option>
+          </select>
+          <button class="btn btn-primary ">
+            Filter
+          </button>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <table class="w-full table-auto text-sm">
+        <thead>
+          <tr class=" ">
+            <th class="py-3 px-4 text-left">Stock</th>
+            <th class="py-3 px-4 text-left">Price</th>
+            <th class="py-3 px-4 text-left">Risk</th>
+            <th class="py-3 px-4 text-left">Trend</th>
+            <th class="py-3 px-4 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Static Data Example -->
+          <tr class="hover:bg-base-200">
+            <td class="py-3 px-4 flex items-center space-x-2">
+              <img src="apple.jpeg" alt="Apple Logo" class="w-8 h-8"/>
+              <span>Apple (AAPL)</span>
+            </td>
+            <td class="py-3 px-4">$178.23</td>
+            <td class="py-3 px-4 text-yellow-500">Medium</td>
+            <td class="py-3 px-4 text-green-600">Rising</td>
+            <td class="py-3 px-4">
+              <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                Buy
+              </button>
+            </td>
+          </tr>
+          <tr class="hover:bg-base-200">
+            <td class="py-3 px-4 flex items-center space-x-2">
+              <img src="google.png" alt="Google Logo" class="w-8 h-8"/>
+              <span>Google (GOOGL)</span>
+            </td>
+            <td class="py-3 px-4">$2,845.55</td>
+            <td class="py-3 px-4 text-green-500">Low</td>
+            <td class="py-3 px-4 text-yellow-500">Stable</td>
+            <td class="py-3 px-4">
+              <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                Buy
+              </button>
+            </td>
+          </tr>
+          <tr class="hover:bg-base-200">
+            <td class="py-3 px-4 flex items-center space-x-2">
+              <img src="microsoft.png" alt="Microsoft Logo" class="w-8 h-8"/>
+              <span>Microsoft (MSFT)</span>
+            </td>
+            <td class="py-3 px-4">$300.12</td>
+            <td class="py-3 px-4 text-red-500">High</td>
+            <td class="py-3 px-4 text-red-600">Falling</td>
+            <td class="py-3 px-4">
+              <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+                Buy
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  <!--
+
+
+    <div class="card card-body bg-base-100 rounded-lg" >
+      <h3 class="text-xl font-semibold   mb-4">Stock Chart</h3>
+
+      <div class="mb-6">
+        <label class="block  mb-2" for="search-stock">
+          Search Stock
+        </label>
+        <div class="flex gap-4 ">
+          <input class="w-full input border border-base-300 focus:outline-blue-500 " id="search-stock" placeholder="Enter stock symbol (e.g., AAPL, GOOGL)" type="text"/>
+          <button class="btn btn-primary ">search</button>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center mb-6">
+        <p class="text-sm  ">Price Trend of Microsoft (MSFT)</p>
+        <button class=" btn btn-primary " onclick="my_modal_3.showModal()">
+          View Full Chart
+        </button>
+      </div>
+
+
+      <div class="w-full bg-base-200  rounded-lg flex flex-col justify-center items-center text-gray-500 overflow-hidden">
+
+        <div class="w-full bg-white">
+          <div id="chart">
+            <apx-chart
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [xaxis]="chartOptions.xaxis"
+              [dataLabels]="chartOptions.dataLabels"
+              [grid]="chartOptions.grid"
+              [stroke]="chartOptions.stroke"
+              [title]="chartOptions.title">
+            </apx-chart>
+          </div>
+
+        </div>
+
+
+
+    </div>
+
+
+      <div class="mt-6 flex justify-center">
+        <a routerLink="/dashboard/predictions" class="btn bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-full shadow-lg hover:from-blue-600 hover:to-purple-700 transition"  >
+          <i class="fas fa-robot mr-2">
+          </i>
+          Predict with AI
+        </a>
+      </div>
+    </div>
+
+  -->
+  <div>
+    <app-stockchart></app-stockchart>
+  </div>
+
+    <!-- Stock News Section -->
+  <div class="card card-body bg-base-100 rounded-lg">
+    <h3 class="text-xl font-semibold mb-4">Latest Stock News</h3>
+    <ul class="space-y-4">
+      <li *ngFor="let newsItem of companyNews" class="flex items-center">
+        <div class="flex-shrink-0 w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <div class="ml-4">
+          <a href="{{ newsItem.url }}" target="_blank" class="text-blue-600 hover:underline">
+            {{ newsItem.headline }}
+          </a>
+          <p class="text-sm text-gray-500">{{ newsItem.datetime | date }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+
+
+  <!-- You can open the modal using ID.showModal() method -->
+  <dialog id="my_modal_3" class="modal">
+    <div class="modal-box">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      </form>
+      <h3 class="text-lg font-bold">Hello!</h3>
+      <p class="py-4">Press ESC key or click on ✕ button to close</p>
+    </div>
+  </dialog>
+
+
+
+
+  </section>
