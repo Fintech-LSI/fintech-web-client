@@ -12,10 +12,15 @@ export class DashboardComponent {
   b : boolean = false ;
 
   logOut() {
-    // Perform any necessary cleanup like clearing tokens, user data, etc.
+    // Clear authentication details from localStorage
+    localStorage.removeItem('authToken'); // Replace 'authToken' with your key for the token
+    localStorage.removeItem('user'); // If you store additional user info, clear it too
+  
+    // Log out message
     console.log('User logged out');
+  
     // Redirect to login page
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
 }

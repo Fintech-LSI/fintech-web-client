@@ -6,54 +6,80 @@
 
   <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
     <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Create an Account</h2>
-
+  
     <!-- Register Form -->
-    <form class="space-y-6">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div>
+        <label for="firstName" class="block text-gray-700 font-medium">First Name</label>
+        <input
+          id="firstName"
+          formControlName="firstName"
+          type="text"
+          class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter your first name"
+        />
+      </div>
+  
+      <div>
+        <label for="lastName" class="block text-gray-700 font-medium">Last Name</label>
+        <input
+          id="lastName"
+          formControlName="lastName"
+          type="text"
+          class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Enter your last name"
+        />
+      </div>
+  
       <div>
         <label for="email" class="block text-gray-700 font-medium">Email Address</label>
         <input
           id="email"
+          formControlName="email"
           type="email"
           class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your email"
         />
       </div>
-
+  
       <div>
         <label for="password" class="block text-gray-700 font-medium">Password</label>
         <input
           id="password"
+          formControlName="password"
           type="password"
           class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your password"
         />
       </div>
-
+  
       <div>
-        <label for="confirm-password" class="block text-gray-700 font-medium">Confirm Password</label>
+        <label for="confirmPassword" class="block text-gray-700 font-medium">Confirm Password</label>
         <input
-          id="confirm-password"
+          id="confirmPassword"
+          formControlName="confirmPassword"
           type="password"
           class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Confirm your password"
         />
       </div>
-
+  
       <div class="flex justify-between items-center">
         <label class="inline-flex items-center text-sm text-gray-600">
-          <input type="checkbox" class="form-checkbox text-blue-500" />
+          <input type="checkbox" class="form-checkbox text-blue-500" formControlName="terms" />
           <span class="ml-2">I agree to the <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a></span>
         </label>
       </div>
-
+  
       <button
         type="submit"
+        [disabled]="registerForm.invalid"
         class="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
       >
         Sign Up
       </button>
     </form>
-
+  
     <div class="mt-4 text-center">
       <p class="text-sm text-gray-600">
         Already have an account?
@@ -61,4 +87,4 @@
       </p>
     </div>
   </div>
-</div>
+  
