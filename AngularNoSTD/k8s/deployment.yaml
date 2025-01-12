@@ -1,25 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: angular-app
-  namespace: angular-app
-  labels:
-    app: angular-app
+  name: frontend-deploy
+  namespace: fintech
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: angular-app
+      app: frontend
   template:
     metadata:
       labels:
-        app: angular-app
+        app: frontend
     spec:
       containers:
-        - name: angular-app
-          image: ${ECR_REPO}/angular-app:${IMAGE_TAG}
+        - name: frontend
+          image: public.ecr.aws/z1z0w2y6/angular-frontend:latest
           ports:
             - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: frontend-config
           resources:
             requests:
               memory: "128Mi"
@@ -27,3 +28,15 @@ spec:
             limits:
               memory: "256Mi"
               cpu: "200m"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
