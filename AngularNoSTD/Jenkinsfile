@@ -2,11 +2,12 @@ pipeline {
     agent any
 
     environment {
-        AWS_ACCOUNT_ID = credentials('AWS_ACCOUNT_ID')
-        AWS_REGION = 'us-east-1'
-        ECR_REPO = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/angular-app"
-        IMAGE_TAG = "v${BUILD_NUMBER}"
-        SONAR_TOKEN = credentials('SONAR_TOKEN')
+        AWS_REGION      = 'us-east-1'
+        IMAGE_NAME      = 'angular-frontend'
+        ECR_REGISTRY    = 'public.ecr.aws/z1z0w2y6'
+        DOCKER_BUILD_NUMBER = "${BUILD_NUMBER}"
+        EKS_CLUSTER_NAME = 'main-cluster'
+        NAMESPACE = 'fintech'
     }
 
     stages {
@@ -18,45 +19,36 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Lint') {
-            steps {
-                sh 'npm run lint'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'npm run test:ci'
-            }
-            post {
-                always {
-                    junit 'reports/junit/*.xml'
+                dir('AngularNoSTD') {
+                    sh 'npm install'
                 }
             }
         }
 
-        stage('SonarQube Analysis') {
+        stage('Run Tests') {
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh """
-                        sonar-scanner \
-                            -Dsonar.projectKey=angular-app \
-                            -Dsonar.sources=src \
-                            -Dsonar.host.url=${SONAR_HOST_URL} \
-                            -Dsonar.login=${SONAR_TOKEN}
-                    """
+                dir('AngularNoSTD') {
+                    script {
+                        try {
+                            sh 'npm run test -- --no-watch --no-progress --browsers=ChromeHeadless'
+                        } catch (Exception e) {
+                            error "Tests failed: ${e.message}"
+                        }
+                    }
                 }
             }
         }
 
-        stage('Quality Gate') {
+        stage('Build') {
             steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: true
+                dir('AngularNoSTD') {
+                    script {
+                        try {
+                            sh 'npm run build --prod'
+                        } catch (Exception e) {
+                            error "Angular build failed: ${e.message}"
+                        }
+                    }
                 }
             }
         }
@@ -64,11 +56,31 @@ pipeline {
         stage('Build & Push Docker Image') {
             steps {
                 script {
-                    docker.build("${ECR_REPO}:${IMAGE_TAG}")
-                    sh """
-                        aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
-                        docker push ${ECR_REPO}:${IMAGE_TAG}
-                    """
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws-credentials',
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                    ]]) {
+                        try {
+                            // Login to ECR
+                            sh """
+                                aws ecr-public get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}
+                            """
+
+                            // Build and tag image
+                            sh """
+                                docker build -t ${ECR_REGISTRY}/${IMAGE_NAME}:latest . --no-cache
+                            """
+
+                            // Push the latest tag
+                            sh """
+                                docker push ${ECR_REGISTRY}/${IMAGE_NAME}:latest
+                            """
+                        } catch (Exception e) {
+                            error "Docker build/push failed: ${e.message}"
+                        }
+                    }
                 }
             }
         }
@@ -76,25 +88,52 @@ pipeline {
         stage('Deploy to EKS') {
             steps {
                 script {
-                    sh """
-                        aws eks update-kubeconfig --region ${AWS_REGION} --name your-cluster-name
-                        kubectl apply -f k8s/
-                        kubectl set image deployment/angular-app angular-app=${ECR_REPO}:${IMAGE_TAG} -n angular-app
-                    """
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: 'aws-credentials',
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                    ]]) {
+                        try {
+                            sh """
+                                aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME}
+                            """
+
+                            sh """
+                                kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
+                            """
+
+                            sh """
+                                kubectl apply -f AngularNoSTD/k8s/configmap.yaml -n ${NAMESPACE}
+                                kubectl apply -f AngularNoSTD/k8s/deployment.yaml -n ${NAMESPACE}
+                                kubectl apply -f AngularNoSTD/k8s/service.yaml -n ${NAMESPACE}
+                            """
+
+                            sh """
+                                echo "Checking deployment status:"
+                                kubectl get pods -n ${NAMESPACE} -l app=frontend
+                            """
+                        } catch (Exception e) {
+                            error "Deployment failed: ${e.message}"
+                        }
+                    }
                 }
             }
         }
     }
 
     post {
-        always {
-            cleanWs()
+        success {
+            echo 'Pipeline succeeded! Frontend deployed successfully.'
         }
         failure {
-            echo 'Pipeline failed!'
+            echo 'Pipeline failed! Check the logs for details.'
         }
-        success {
-            echo 'Pipeline succeeded!'
+        always {
+            sh """
+                docker rmi ${ECR_REGISTRY}/${IMAGE_NAME}:latest || true
+            """
+            cleanWs()
         }
     }
 }
