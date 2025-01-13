@@ -18,10 +18,11 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { NgApexchartsModule } from 'ng-apexcharts'; // Correct import for NgApexchartsModule
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 import { StockchartComponent } from './components/stockchart/stockchart.component';
 import { PredictionsComponent } from './components/predictions/predictions.component';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -48,10 +49,13 @@ import { PredictionsComponent } from './components/predictions/predictions.compo
     NgApexchartsModule,
     FormsModule,
     HttpClientModule,
+    JwtModule
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
   ],
   bootstrap: [AppComponent]
 })
