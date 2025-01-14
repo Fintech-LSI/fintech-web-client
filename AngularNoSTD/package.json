@@ -30,6 +30,7 @@
     "apexcharts": "^4.0.0",
     "express": "^4.18.2",
     "finnhub": "^1.2.19",
+    "jwt-decode": "^4.0.0",
     "ng-apexcharts": "^1.13.0",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.8.1",

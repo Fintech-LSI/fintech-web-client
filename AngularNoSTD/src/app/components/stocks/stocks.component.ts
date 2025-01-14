@@ -28,7 +28,8 @@ export type ChartOptions = {
 @Component({
   selector: 'app-stocks',
   templateUrl: './stocks.component.html',
-  styleUrls: ['./stocks.component.scss']
+  styleUrls: ['./stocks.component.scss'],
+  standalone: false
 })
 export class StocksComponent implements OnInit, OnDestroy, OnChanges {
   public chartOptions: ChartOptions;

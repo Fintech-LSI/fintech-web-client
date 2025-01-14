@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
-  styleUrl: './activity.component.scss'
+  styleUrl: './activity.component.scss',
+  standalone: false
 })
 export class ActivityComponent {
 

@@ -23,6 +23,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { StockchartComponent } from './components/stockchart/stockchart.component';
 import { PredictionsComponent } from './components/predictions/predictions.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { NgModel } from '@angular/forms';
+import { jwtDecode } from 'jwt-decode';
+import { icon } from '@fortawesome/fontawesome-svg-core';
+import { WalletComponent } from './components/wallet/wallet.component';
+import { CurrencyComponent } from './components/currency/currency.component';
+
+
 
 @NgModule({
   declarations: [
@@ -40,6 +47,10 @@ import { JwtModule } from '@auth0/angular-jwt';
     PortfolioComponent,
     StockchartComponent,
     PredictionsComponent,
+    WalletComponent,
+    CurrencyComponent
+    
+  
   ],
   imports: [
     BrowserModule,
@@ -47,15 +58,20 @@ import { JwtModule } from '@auth0/angular-jwt';
     AppRoutingModule,
     ReactiveFormsModule,
     NgApexchartsModule,
-    FormsModule,
     HttpClientModule,
-    JwtModule
+    JwtModule,
+    FontAwesomeModule,
+    FormsModule,
+    
+
+    
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch()),
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-    JwtHelperService
+    JwtHelperService,
+    
   ],
   bootstrap: [AppComponent]
 })

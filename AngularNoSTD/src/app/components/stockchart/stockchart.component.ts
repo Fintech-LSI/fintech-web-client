@@ -32,7 +32,8 @@ export type ChartOptions = {
 @Component({
   selector: 'app-stockchart',
   templateUrl: './stockchart.component.html',
-  styleUrl: './stockchart.component.scss'
+  styleUrl: './stockchart.component.scss',
+  standalone: false
 })
 export class StockchartComponent implements OnInit{
   @ViewChild("lineChart") lineChart!: ChartComponent;

@@ -11,6 +11,8 @@ import { TransactionsComponent } from './components/transactions/transactions.co
 import {PortfolioComponent} from './components/portfolio/portfolio.component';
 import {StockchartComponent} from './components/stockchart/stockchart.component';
 import {PredictionsComponent} from './components/predictions/predictions.component';
+import { WalletComponent } from './components/wallet/wallet.component';
+import { CurrencyComponent } from './components/currency/currency.component';
 
 const routes: Routes = [
 
@@ -29,6 +31,8 @@ const routes: Routes = [
       { path: 'portfolio', component: PortfolioComponent },
       { path: 'stockchart', component: StockchartComponent },
       { path: 'predictions', component: PredictionsComponent },
+      { path: 'wallet', component: WalletComponent },
+      { path: 'currencies' , component: CurrencyComponent }
     ],
   },
 ];

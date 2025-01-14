@@ -18,7 +18,8 @@
           <span class="absolute top-0 right-0 inline-block w-2 h-2 bg-red-600 rounded-full">
        </span>
         </div>
-        <img alt="Profile picture of the user" class="rounded-full w-10 h-10" height="40" src="https://storage.googleapis.com/a1aa/image/tgrCDE3zGm74I1wPDNePERLa3Aj9TmNXtUHc0jLyi8tMZfzTA.jpg" width="40"/>
+        <img [src]="profilePictureUrl" [alt]="'Profile picture of ' + userName" class="rounded-full w-10 h-10" width="40" height="40"/>
+  <span class="ml-2 text-sm font-medium text-gray-700 dark:text-gray-200">{{ userName }}</span>
 
         <label class="swap swap-rotate mx-0 size-5">
           <!-- this hidden checkbox controls the state -->
@@ -64,18 +65,18 @@
          Dashboard
         </span>
           </a>
-          <a routerLink="/dashboard/transactions" class="flex items-center   p-2 rounded hover:bg-base-300" >
+          <a routerLink="/dashboard/wallet" class="flex items-center   p-2 rounded hover:bg-base-300" >
             <i class="fas fa-wallet mr-3">
             </i>
             <span>
-         Accounts
+         Wallet
         </span>
           </a>
-          <a routerLink="/dashboard/transactions" class="flex items-center   p-2 rounded hover:bg-base-300" >
+          <a routerLink="/dashboard/currencies" class="flex items-center   p-2 rounded hover:bg-base-300" >
             <i class="fas fa-exchange-alt mr-3">
             </i>
             <span>
-         Transactions
+         Currencies
         </span>
           </a>
           <a routerLink="/dashboard/stocks" class="flex items-center   p-2 rounded hover:bg-base-300" >
