@@ -1,113 +1,139 @@
-<section class="container mx-auto p-6" [ngClass]="{'dark': darkMode}">
-  <h2 class="text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-200">Profile</h2>
+<section class="container mx-auto" [ngClass]="{'dark': darkMode}">
+  <h2 class="text-2xl font-bold mb-4">Profile</h2>
 
-  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
-    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">User Information</h3>
-    <div class="flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-6">
-      <div class="relative">
-        <img [src]="profilePictureUrl" alt="Profile Picture" class="w-32 h-32 rounded-full object-cover shadow-md">
-        <label for="profile-picture" class="absolute bottom-2 right-2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition cursor-pointer">
-          <i class="fas fa-camera"></i>
-          <input id="profile-picture" type="file" (change)="onFileChange($event)" class="hidden" accept="image/*">
-        </label>
-      </div>
-      <div>
-        <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200">{{profileForm.get('firstName')?.value}} {{profileForm.get('lastName')?.value}}</h3>
-        <p class="text-gray-600 dark:text-gray-400">{{profileForm.get('email')?.value}}</p>
-        <p class="text-blue-600 dark:text-blue-400 font-semibold">Member Since: Jan 2021</p>
+  <div class="card bg-base-100 shadow-xl mb-8" >
+    <div class="card-body">
+      <h3 class="text-xl font-semibold mb-4 card-title text-gray-800 dark:text-gray-200">User Information</h3>
+      <div class="flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-6">
+        <div class="relative">
+          <div class="avatar">
+            <div class="w-32 rounded-full">
+              <img [src]="profilePictureUrl" alt="Profile Picture" class="object-cover shadow-md">
+            </div>
+          </div>
+
+          <label for="profile-picture" class="absolute bottom-2 right-2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition cursor-pointer">
+            <i class="fas fa-camera"></i>
+            <input id="profile-picture" type="file" (change)="onFileChange($event)" class="hidden" accept="image/*">
+          </label>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200">{{profileForm.get('firstName')?.value}} {{profileForm.get('lastName')?.value}}</h3>
+          <p class="text-gray-600 dark:text-gray-400">{{profileForm.get('email')?.value}}</p>
+          <p class="text-blue-600 dark:text-blue-400 font-semibold">Member Since: Jan 2021</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg mb-8">
-    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Financial Overview</h3>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="text-center">
-        <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Current Balance</h4>
-        <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">${{financialOverview.currentBalance.toFixed(2)}}</p>
-      </div>
-      <div class="text-center">
-        <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Preferred Currency</h4>
-        <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{financialOverview.preferredCurrency}}</p>
-      </div>
-      <div class="text-center">
-        <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Favorite Coin</h4>
-        <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{financialOverview.favoriteCoin}}</p>
-      </div>
-      <div class="text-center">
-        <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Account Type</h4>
-        <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{financialOverview.accountType}}</p>
+  <div class="card bg-base-100 shadow-xl mb-8" >
+    <div class="card-body">
+      <h3 class="text-xl font-semibold mb-4 card-title text-gray-800 dark:text-gray-200">Financial Overview</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="text-center">
+          <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Current Balance</h4>
+          <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">${{financialOverview.currentBalance.toFixed(2)}}</p>
+        </div>
+        <div class="text-center">
+          <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Preferred Currency</h4>
+          <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{financialOverview.preferredCurrency}}</p>
+        </div>
+        <div class="text-center">
+          <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Favorite Coin</h4>
+          <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{financialOverview.favoriteCoin}}</p>
+        </div>
+        <div class="text-center">
+          <h4 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Account Type</h4>
+          <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{financialOverview.accountType}}</p>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4">Profile Settings</h3>
-    <form [formGroup]="profileForm" (ngSubmit)="onSaveChanges()" class="space-y-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <ng-container *ngIf="!isEditMode; else editableFields">
-          <div *ngFor="let field of ['firstName', 'lastName', 'email', 'role', 'age', 'salary', 'homeOwnership', 'employmentMonth']">
-            <label class="block text-gray-700 dark:text-gray-300 font-semibold">{{field | titlecase}}</label>
-            <p class="mt-1 text-gray-900 dark:text-gray-100">{{profileForm.get(field)?.value}}</p>
-          </div>
-        </ng-container>
-        
-        <ng-template #editableFields>
-          <div>
-            <label for="firstName" class="block text-gray-700 dark:text-gray-300 font-semibold">First Name</label>
-            <input id="firstName" type="text" formControlName="firstName" class="w-full mt-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
-          </div>
-          <div>
-            <label for="lastName" class="block text-gray-700 dark:text-gray-300 font-semibold">Last Name</label>
-            <input id="lastName" type="text" formControlName="lastName" class="w-full mt-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
-          </div>
-          <div>
-            <label for="email" class="block text-gray-700 dark:text-gray-300 font-semibold">Email</label>
-            <input id="email" type="email" formControlName="email" class="w-full mt-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
-          </div>
-          <div>
-            <label for="role" class="block text-gray-700 dark:text-gray-300 font-semibold">Role</label>
-            <select id="role" formControlName="role" class="w-full mt-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
-              <option value="USER">User</option>
-              <option value="ADMIN">Admin</option>
-            </select>
-          </div>
-          <div>
-            <label for="age" class="block text-gray-700 dark:text-gray-300 font-semibold">Age</label>
-            <input id="age" type="number" formControlName="age" class="w-full mt-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
-          </div>
-          <div>
-            <label for="salary" class="block text-gray-700 dark:text-gray-300 font-semibold">Salary</label>
-            <input id="salary" type="number" formControlName="salary" class="w-full mt-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
-          </div>
-          <div>
-            <label for="homeOwnership" class="block text-gray-700 dark:text-gray-300 font-semibold">Home Ownership</label>
-            <select id="homeOwnership" formControlName="homeOwnership" class="w-full mt-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
-              <option value="OWN">Own</option>
-              <option value="RENT">Rent</option>
-              <option value="MORTGAGE">Mortgage</option>
-            </select>
-          </div>
-          <div>
-            <label for="employmentMonth" class="block text-gray-700 dark:text-gray-300 font-semibold">Employment Duration (months)</label>
-            <input id="employmentMonth" type="number" formControlName="employmentMonth" class="w-full mt-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white">
-          </div>
-        </ng-template>
-      </div>
-      <div>
-        <button *ngIf="!isEditMode" type="button" (click)="toggleEditMode()" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600">
-          Update Profile
-        </button>
-        <button *ngIf="isEditMode" type="submit" [disabled]="loading || profileForm.invalid" class="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 dark:bg-blue-500 dark:hover:bg-blue-600">
-          <ng-container *ngIf="loading; else saveChanges">
-            <i class="fas fa-spinner fa-spin mr-2"></i>Loading...
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h3 class="text-xl font-semibold mb-4 card-title text-gray-800 dark:text-gray-200">Profile Settings</h3>
+      <form [formGroup]="profileForm" (ngSubmit)="onSaveChanges()" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <ng-container *ngIf="!isEditMode; else editableFields">
+            <div *ngFor="let field of ['firstName', 'lastName', 'email', 'role', 'age', 'salary', 'homeOwnership', 'employmentMonth']">
+              <label class="label">
+                <span class="label-text font-semibold text-gray-700 dark:text-gray-300">{{field | titlecase}}</span>
+              </label>
+              <p class="text-gray-900 dark:text-gray-100">{{profileForm.get(field)?.value}}</p>
+            </div>
           </ng-container>
-          <ng-template #saveChanges>Save Changes</ng-template>
-        </button>
-      </div>
-    </form>
+
+          <ng-template #editableFields>
+            <div class="form-control">
+              <label for="firstName" class="label">
+                <span class="label-text text-gray-700 dark:text-gray-300 font-semibold">First Name</span>
+              </label>
+              <input id="firstName" type="text" formControlName="firstName" class="input input-bordered w-full">
+            </div>
+            <div class="form-control">
+              <label for="lastName" class="label">
+                <span class="label-text text-gray-700 dark:text-gray-300 font-semibold">Last Name</span>
+              </label>
+              <input id="lastName" type="text" formControlName="lastName" class="input input-bordered w-full">
+            </div>
+            <div class="form-control">
+              <label for="email" class="label">
+                <span class="label-text text-gray-700 dark:text-gray-300 font-semibold">Email</span>
+              </label>
+              <input id="email" type="email" formControlName="email" class="input input-bordered w-full">
+            </div>
+            <div class="form-control">
+              <label for="role" class="label">
+                <span class="label-text text-gray-700 dark:text-gray-300 font-semibold">Role</span>
+              </label>
+              <select id="role" formControlName="role" class="select select-bordered w-full">
+                <option value="USER">User</option>
+                <option value="ADMIN">Admin</option>
+              </select>
+            </div>
+            <div class="form-control">
+              <label for="age" class="label">
+                <span class="label-text text-gray-700 dark:text-gray-300 font-semibold">Age</span>
+              </label>
+              <input id="age" type="number" formControlName="age" class="input input-bordered w-full">
+            </div>
+            <div class="form-control">
+              <label for="salary" class="label">
+                <span class="label-text text-gray-700 dark:text-gray-300 font-semibold">Salary</span>
+              </label>
+              <input id="salary" type="number" formControlName="salary" class="input input-bordered w-full">
+            </div>
+            <div class="form-control">
+              <label for="homeOwnership" class="label">
+                <span class="label-text text-gray-700 dark:text-gray-300 font-semibold">Home Ownership</span>
+              </label>
+              <select id="homeOwnership" formControlName="homeOwnership" class="select select-bordered w-full">
+                <option value="OWN">Own</option>
+                <option value="RENT">Rent</option>
+                <option value="MORTGAGE">Mortgage</option>
+              </select>
+            </div>
+            <div class="form-control">
+              <label for="employmentMonth" class="label">
+                <span class="label-text text-gray-700 dark:text-gray-300 font-semibold">Employment Duration (months)</span>
+              </label>
+              <input id="employmentMonth" type="number" formControlName="employmentMonth" class="input input-bordered w-full">
+            </div>
+          </ng-template>
+        </div>
+        <div>
+          <button *ngIf="!isEditMode" type="button" (click)="toggleEditMode()" class="btn btn-primary w-full">
+            Update Profile
+          </button>
+          <button *ngIf="isEditMode" type="submit" [disabled]="loading || profileForm.invalid" class="btn btn-primary w-full">
+            <ng-container *ngIf="loading; else saveChanges">
+              <i class="fas fa-spinner fa-spin mr-2"></i>Loading...
+            </ng-container>
+            <ng-template #saveChanges>Save Changes</ng-template>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-
-  
 </section>
-
