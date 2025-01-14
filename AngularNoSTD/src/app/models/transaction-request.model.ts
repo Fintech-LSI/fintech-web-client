@@ -1,9 +1,8 @@
 export interface TransactionRequest {
-  transactionType: string;
+  transactionType?: string;
   walletId: number;
   targetWalletId?: number;
   amount: number;
-  description: string;
+  description?: string;
   moneyMethod: string;
 }
-
