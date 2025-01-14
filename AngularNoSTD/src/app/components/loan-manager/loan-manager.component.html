@@ -1,0 +1,80 @@
+<div class="container mx-auto  ">
+  <h2 class="text-2xl font-bold   text-gray-800  ">
+    Loan Manager
+  </h2>
+  <div *ngIf="loading" class="text-center mb-4">
+    <span class="loading loading-dots loading-md"></span>
+  </div>
+  <div *ngIf="loans && loans.length > 0" class="card bg-white shadow-xl mt-6">
+    <div class="card-body">
+      <h3 class="card-title text-xl font-semibold text-gray-700 flex items-center mb-4">
+        All Loan Details
+      </h3>
+      <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
+          <thead>
+          <tr>
+            <th>Loan ID</th>
+            <th>Person Age</th>
+            <th>Person Income</th>
+            <th>Home Ownership</th>
+            <th>Employment Length</th>
+            <th>Loan Intent</th>
+            <th>Loan Grade</th>
+            <th>Loan Amount</th>
+            <th>Interest Rate</th>
+            <th>Loan Status</th>
+            <th>Percent Income</th>
+            <th>Default On File</th>
+            <th>Credit History Length</th>
+            <th>Prediction Status</th>
+            <th>Prediction Approval</th>
+            <th>Prediction Denial</th>
+            <th>Action</th>
+
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let loan of loans">
+            <td>{{loan.loan_id}}</td>
+            <td>{{loan.person_age}}</td>
+            <td>{{loan.person_income}}</td>
+            <td>{{loan.person_home_ownership}}</td>
+            <td>{{loan.person_emp_length}}</td>
+            <td>{{loan.loan_intent}}</td>
+            <td>{{loan.loan_grade}}</td>
+            <td>{{loan.loan_amnt}}</td>
+            <td>{{loan.loan_int_rate}}</td>
+            <td>
+              <span *ngIf="loan.loan_status === 1" class="badge badge-success">Approved</span>
+              <span *ngIf="loan.loan_status === 0" class="badge badge-error">Denied</span>
+              <span *ngIf="loan.loan_status === null" class="badge badge-info">Pending</span>
+            </td>
+            <td>{{loan.loan_percent_income}}</td>
+            <td>{{loan.cb_person_default_on_file}}</td>
+            <td>{{loan.cb_person_cred_hist_length}}</td>
+            <td>
+              <span *ngIf="predictionResults[loan.loan_id]">{{predictionResults[loan.loan_id].loan_status}}</span>
+            </td>
+            <td>
+              <span *ngIf="predictionResults[loan.loan_id]">{{predictionResults[loan.loan_id].probability_of_approval}}</span>
+            </td>
+            <td>
+              <span *ngIf="predictionResults[loan.loan_id]">{{predictionResults[loan.loan_id].probability_of_denial}}</span>
+            </td>
+            <td>
+              <div class="flex justify-center">
+                <button (click)="predictLoan(loan)"
+                        class="btn bg-gradient-to-r from-blue-500 to-purple-600 text-xs text-white px-3 rounded-full shadow-lg hover:from-blue-600 hover:to-purple-700 transition"  >
+                  <i class="fas fa-robot mr-2"></i>
+                  Predict
+                </button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

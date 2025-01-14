@@ -28,6 +28,8 @@ import { jwtDecode } from 'jwt-decode';
 import { icon } from '@fortawesome/fontawesome-svg-core';
 import { WalletComponent } from './components/wallet/wallet.component';
 import { CurrencyComponent } from './components/currency/currency.component';
+import { LoanComponent } from './components/loan/loan.component';
+import { LoanManagerComponent } from './components/loan-manager/loan-manager.component';
 
 
 
@@ -48,7 +50,9 @@ import { CurrencyComponent } from './components/currency/currency.component';
     StockchartComponent,
     PredictionsComponent,
     WalletComponent,
-    CurrencyComponent
+    CurrencyComponent,
+    LoanComponent,
+    LoanManagerComponent
     
   
   ],

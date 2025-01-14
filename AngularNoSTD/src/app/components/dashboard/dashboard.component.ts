@@ -49,6 +49,18 @@ export class DashboardComponent implements OnInit {
           path: '/dashboard/currencies',
           isActive: false
         },
+        {
+          title: 'Loan',
+          icon: 'fa-solid fa-coins',
+          path: '/dashboard/loan',
+          isActive: false
+        },
+        {
+          title: 'Loan Manager',
+          icon: 'fa-solid fa-money-bills',
+          path: '/dashboard/loan-manager',
+          isActive: false
+        },
       ]
     },
     {
@@ -91,7 +103,7 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
-    //this.loadUserData();
+    this.loadUserData();
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -117,7 +129,7 @@ export class DashboardComponent implements OnInit {
         }
       });
     } else {
-      this.router.navigate(['/login']); // Redirect to login if no token
+      //this.router.navigate(['/login']); // Redirect to login if no token
     }
   }
 

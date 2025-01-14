@@ -13,6 +13,8 @@ import {StockchartComponent} from './components/stockchart/stockchart.component'
 import {PredictionsComponent} from './components/predictions/predictions.component';
 import { WalletComponent } from './components/wallet/wallet.component';
 import { CurrencyComponent } from './components/currency/currency.component';
+import {LoanComponent} from './components/loan/loan.component';
+import {LoanManagerComponent} from './components/loan-manager/loan-manager.component';
 
 const routes: Routes = [
 
@@ -32,7 +34,9 @@ const routes: Routes = [
       { path: 'stockchart', component: StockchartComponent },
       { path: 'predictions', component: PredictionsComponent },
       { path: 'wallet', component: WalletComponent },
-      { path: 'currencies' , component: CurrencyComponent }
+      { path: 'currencies' , component: CurrencyComponent },
+      { path: 'loan' , component: LoanComponent },
+      { path: 'loan-manager' , component: LoanManagerComponent },
     ],
   },
 ];
