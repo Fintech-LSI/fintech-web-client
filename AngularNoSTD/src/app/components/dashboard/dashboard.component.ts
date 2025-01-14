@@ -61,7 +61,6 @@ export class DashboardComponent implements OnInit {
           path: '/dashboard/loan-manager',
           isActive: false
         },
-        ,
         {
           title: 'Fav Currencies',
           icon: 'fa-exchange-alt',
