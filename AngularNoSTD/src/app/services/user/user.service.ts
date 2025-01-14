@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class UserService {
   private authUrl = 'http://localhost:8222/api/auth';
   private userUrl = 'http://localhost:8222/api/users';
-  private imgUrl = 'http://localhost:8222/users/public';
+  private imgUrl = 'http://localhost:8222/users/public/images';
 
   constructor(private http: HttpClient) {}
 
@@ -38,6 +38,6 @@ export class UserService {
 
   // Get image URL (public access)
   getImageUrl(filename: string): string {
-    return `${this.imgUrl}${filename}`;
+    return `${this.imgUrl}/${filename}`;
   }
 }

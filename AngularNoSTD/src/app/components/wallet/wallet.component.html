@@ -2,157 +2,148 @@
   <h2 class="text-2xl font-bold mb-4">Wallets</h2>
 
   <div *ngIf="error" class="alert alert-error mb-4">
-    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-    <span>{{ error }}</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      <span>{{ error }}</span>
   </div>
 
 
   <div class="mb-8 card bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h3 class="text-xl font-semibold mb-2 card-title">Create New Wallet</h3>
-      <form (ngSubmit)="createWallet()" class="space-y-4">
-        <div class="form-control">
-          <label for="currencyCode" class="label">
-            <span class="label-text">Currency</span>
-          </label>
-          <select id="currencyCode" name="currencyCode" [(ngModel)]="newWallet.currencyCode" required
-                  class="select select-bordered w-full">
-            <option *ngFor="let currency of currencies" [value]="currency.code">{{ currency.name }} ({{ currency.code }})</option>
-          </select>
-        </div>
-        <div class="form-control">
-          <label for="initialBalance" class="label">
-            <span class="label-text">Initial Balance</span>
-          </label>
-          <input type="number" id="initialBalance" name="initialBalance" [(ngModel)]="newWallet.initialBalance" required
-                 class="input input-bordered w-full" />
-        </div>
-        <button type="submit" class="btn btn-primary">
-          Create Wallet
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <div class="mb-8 card bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h3 class="text-xl font-semibold mb-2 card-title">Your Wallets</h3>
-      <div class="overflow-x-auto">
-        <table class="table w-full">
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Balance</th>
-            <th>Currency</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let wallet of wallets">
-            <td>{{ wallet.id }}</td>
-            <td>{{ wallet.balance }}</td>
-            <td>{{ wallet.currencyCode }}</td>
-            <td>
-              <button (click)="updateWalletBalance(wallet.id)" class="btn btn-sm btn-link">Update Balance</button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+      <div class="card-body">
+          <h3 class="text-xl font-semibold mb-2 card-title">Create New Wallet</h3>
+          <form (ngSubmit)="createWallet()" class="space-y-4">
+              <div class="form-control">
+                  <label for="currencyCode" class="label">
+                      <span class="label-text">Currency</span>
+                  </label>
+                  <select id="currencyCode" name="currencyCode" [(ngModel)]="newWallet.currencyCode" required
+                          class="select select-bordered w-full">
+                      <option *ngFor="let currency of currencies" [value]="currency.code">{{ currency.name }} ({{ currency.code }})</option>
+                  </select>
+              </div>
+              <div class="form-control">
+                  <label for="initialBalance" class="label">
+                      <span class="label-text">Initial Balance</span>
+                  </label>
+                  <input type="number" id="initialBalance" name="initialBalance" [(ngModel)]="newWallet.initialBalance" required
+                         class="input input-bordered w-full" />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                  Create Wallet
+              </button>
+          </form>
       </div>
-    </div>
   </div>
 
   <div class="mb-8 card bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h3 class="text-xl font-semibold mb-2 card-title">Deposit</h3>
-      <form (ngSubmit)="deposit()" class="space-y-4">
-        <div class="form-control">
-          <label for="depositWalletId" class="label">
-            <span class="label-text">Wallet</span>
-          </label>
-          <select id="depositWalletId" name="depositWalletId" [(ngModel)]="depositRequest.walletId" required
-                  class="select select-bordered w-full">
-            <option *ngFor="let wallet of wallets" [value]="wallet.id">{{ wallet.currencyCode }} - Balance: {{ wallet.balance }}</option>
-          </select>
-        </div>
-        <div class="form-control">
-          <label for="depositAmount" class="label">
-            <span class="label-text">Amount</span>
-          </label>
-          <input type="number" id="depositAmount" name="depositAmount" [(ngModel)]="depositRequest.amount" required
-                 class="input input-bordered w-full" />
-        </div>
-        <div class="form-control">
-          <label for="depositMoneyMethod" class="label">
-            <span class="label-text">Money Method</span>
-          </label>
-          <input type="text" id="depositMoneyMethod" name="depositMoneyMethod" [(ngModel)]="depositRequest.moneyMethod" required
-                 class="input input-bordered w-full" />
-        </div>
-        <button type="submit" class="btn btn-primary">
-          Deposit
-        </button>
-      </form>
-    </div>
+      <div class="card-body">
+          <h3 class="text-xl font-semibold mb-2 card-title">Your Wallets</h3>
+          <div class="overflow-x-auto">
+              <table class="table w-full">
+                  <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Balance</th>
+                      <th>Currency</th>
+                      <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let wallet of wallets">
+                      <td>{{ wallet.id }}</td>
+                      <td>{{ wallet.balance }}</td>
+                      <td>{{ wallet.currencyCode }}</td>
+                      <td>
+                          <button (click)="selectWalletForUpdate(wallet)" class="btn btn-sm btn-link">Update Balance</button>
+                      </td>
+                  </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
   </div>
-
+  <div *ngIf="selectedWalletForUpdate" class="mb-8 card bg-base-100 shadow-xl">
+      <div class="card-body">
+          <h3 class="text-xl font-semibold mb-2 card-title">Update Wallet Balance for {{ selectedWalletForUpdate.id }}</h3>
+          <form (ngSubmit)="updateWalletBalance()" class="space-y-4">
+              <div class="form-control">
+                <label for="updateAmount" class="label">
+                  <span class="label-text">New Balance</span>
+                </label>
+                <input type="number" id="updateAmount" name="updateAmount" [(ngModel)]="updateBalance.amount" required
+                       class="input input-bordered w-full" />
+              </div>
+              <div class="form-control">
+                <label for="updateCurrency" class="label">
+                  <span class="label-text">Currency</span>
+                </label>
+                <input type="text" id="updateCurrency" name="updateCurrency"  [value]="selectedWalletForUpdate.currencyCode" disabled
+                       class="input input-bordered w-full" />
+              </div>
+              <div class="flex justify-end">
+                  <button (click)="cancelUpdate()" type="button" class="btn btn-ghost mr-2">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Update Balance</button>
+              </div>
+          </form>
+      </div>
+  </div>
   <div class="mb-8 card bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h3 class="text-xl font-semibold mb-2 card-title">Perform Transaction</h3>
-      <form (ngSubmit)="performTransaction()" class="space-y-4">
-        <div class="form-control">
-          <label for="transactionType" class="label">
-            <span class="label-text">Transaction Type</span>
-          </label>
-          <select id="transactionType" name="transactionType" [(ngModel)]="transaction.transactionType" required
-                  class="select select-bordered w-full">
-            <option value="WITHDRAWAL">Withdrawal</option>
-            <option value="TRANSFER">Transfer</option>
-          </select>
-        </div>
-        <div class="form-control">
-          <label for="walletId" class="label">
-            <span class="label-text">Wallet ID</span>
-          </label>
-          <select id="walletId" name="walletId" [(ngModel)]="transaction.walletId" required
-                  class="select select-bordered w-full">
-            <option *ngFor="let wallet of wallets" [value]="wallet.id">{{ wallet.currencyCode }} - Balance: {{ wallet.balance }}</option>
-          </select>
-        </div>
-        <div *ngIf="transaction.transactionType === 'TRANSFER'" class="form-control">
-          <label for="targetWalletId" class="label">
-            <span class="label-text">Target Wallet ID</span>
-          </label>
-          <select id="targetWalletId" name="targetWalletId" [(ngModel)]="transaction.targetWalletId" required
-                  class="select select-bordered w-full">
-            <option *ngFor="let wallet of wallets" [value]="wallet.id">{{ wallet.currencyCode }} - Balance: {{ wallet.balance }}</option>
-          </select>
-        </div>
-        <div class="form-control">
-          <label for="amount" class="label">
-            <span class="label-text">Amount</span>
-          </label>
-          <input type="number" id="amount" name="amount" [(ngModel)]="transaction.amount" required
-                 class="input input-bordered w-full" />
-        </div>
-        <div class="form-control">
-          <label for="description" class="label">
-            <span class="label-text">Description</span>
-          </label>
-          <input type="text" id="description" name="description" [(ngModel)]="transaction.description" required
-                 class="input input-bordered w-full" />
-        </div>
-        <div class="form-control">
-          <label for="moneyMethod" class="label">
-            <span class="label-text">Money Method</span>
-          </label>
-          <input type="text" id="moneyMethod" name="moneyMethod" [(ngModel)]="transaction.moneyMethod" required
-                 class="input input-bordered w-full" />
-        </div>
-        <button type="submit" class="btn btn-primary">
-          Perform Transaction
-        </button>
-      </form>
-    </div>
+      <div class="card-body">
+          <h3 class="text-xl font-semibold mb-2 card-title">Perform Transaction</h3>
+          <form (ngSubmit)="performTransaction()" class="space-y-4">
+              <div class="form-control">
+                  <label for="transactionType" class="label">
+                      <span class="label-text">Transaction Type</span>
+                  </label>
+                  <select id="transactionType" name="transactionType" [(ngModel)]="transaction.transactionType" required
+                          class="select select-bordered w-full">
+                      <option value="DEPOSIT">Deposit</option>
+                      <option value="WITHDRAW">Withdraw</option>
+                      <option value="TRANSFER">Transfer</option>
+                  </select>
+              </div>
+              <div class="form-control">
+                  <label for="walletId" class="label">
+                      <span class="label-text">Wallet ID</span>
+                  </label>
+                  <select id="walletId" name="walletId" [(ngModel)]="transaction.walletId" required
+                          class="select select-bordered w-full">
+                      <option *ngFor="let wallet of wallets" [value]="wallet.id">{{ wallet.currencyCode }} - Balance: {{ wallet.balance }}</option>
+                  </select>
+              </div>
+              <div *ngIf="transaction.transactionType === 'TRANSFER'" class="form-control">
+                  <label for="targetWalletId" class="label">
+                      <span class="label-text">Target Wallet ID</span>
+                  </label>
+                  <select id="targetWalletId" name="targetWalletId" [(ngModel)]="transaction.targetWalletId" required
+                          class="select select-bordered w-full">
+                      <option *ngFor="let wallet of wallets" [value]="wallet.id">{{ wallet.currencyCode }} - Balance: {{ wallet.balance }}</option>
+                  </select>
+              </div>
+              <div class="form-control">
+                  <label for="amount" class="label">
+                      <span class="label-text">Amount</span>
+                  </label>
+                  <input type="number" id="amount" name="amount" [(ngModel)]="transaction.amount" required
+                         class="input input-bordered w-full" />
+              </div>
+              <div class="form-control">
+                  <label for="description" class="label">
+                      <span class="label-text">Description</span>
+                  </label>
+                  <input type="text" id="description" name="description" [(ngModel)]="transaction.description" required
+                         class="input input-bordered w-full" />
+              </div>
+              <div class="form-control">
+                  <label for="moneyMethod" class="label">
+                      <span class="label-text">Money Method</span>
+                  </label>
+                  <input type="text" id="moneyMethod" name="moneyMethod" [(ngModel)]="transaction.moneyMethod" required
+                         class="input input-bordered w-full" />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                  Perform Transaction
+              </button>
+          </form>
+      </div>
   </div>
 </div>

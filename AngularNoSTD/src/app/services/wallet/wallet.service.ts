@@ -46,46 +46,35 @@ export class WalletService {
     return this.http.put<WalletResponse>(`${this.apiUrl}/${id}/balance`, request, { headers: this.getHeaders() });
   }
 
-  performTransaction(request: TransactionRequest): Observable<WalletResponse> {
-    return this.http.post<WalletResponse>(`${this.apiUrl}/transaction`, request, { headers: this.getHeaders() });
-  }
-
   getUserWallets(): Observable<WalletResponse[]> {
-    return this.userService.validateToken(localStorage.getItem('token') || '').pipe(
-      switchMap(response => {
-        if (response.valid) {
-          return this.http.get<WalletResponse[]>(`${this.apiUrl}`, { headers: this.getHeaders() });
-        } else {
-          return throwError(() => new Error('Invalid token'));
-        }
-      }),
-      catchError(error => {
-        console.error('Error fetching user wallets:', error);
-        return throwError(() => error);
-      })
-    );
+      return this.userService.validateToken(localStorage.getItem('token') || '').pipe(
+          switchMap(response => {
+              if (response.valid) {
+                const userId = response.user.id;
+                return this.http.get<WalletResponse[]>(`${this.apiUrl}/user/${userId}`, { headers: this.getHeaders() });
+              } else {
+                  return throwError(() => new Error('Invalid token'));
+              }
+          }),
+          catchError(error => {
+              console.error('Error fetching user wallets:', error);
+              return throwError(() => error);
+          })
+      );
   }
 
-  getCurrentWallets(): Observable<WalletResponse[]> {
-    return this.userService.validateToken(localStorage.getItem('token') || '').pipe(
-      switchMap(response => {
-        if (response.valid) {
-          const userId = response.user.id; // Extract the userId from the response
-          return this.http.get<WalletResponse[]>(`${this.apiUrl}?userId=${userId}`, { headers: this.getHeaders() });
-        } else {
-          return throwError(() => new Error('Invalid token'));
-        }
-      }),
-      catchError(error => {
-        console.error('Error fetching user wallets:', error);
-        return throwError(() => error);
-      })
-    );
-  }
-  
 
-  deposit(request: TransactionRequest): Observable<WalletResponse> {
-    return this.http.post<WalletResponse>(`${this.apiUrl}/deposit`, request, { headers: this.getHeaders() });
+  performTransaction(request: TransactionRequest): Observable<WalletResponse> {
+    if(request.transactionType === 'DEPOSIT'){
+      return this.http.post<WalletResponse>(`${this.apiUrl}/deposit`, request, { headers: this.getHeaders() });
+    }
+    if(request.transactionType === 'TRANSFER'){
+      return this.http.post<WalletResponse>(`${this.apiUrl}/transfer`, request, { headers: this.getHeaders() });
+    }
+    if(request.transactionType === 'WITHDRAW'){
+      return this.http.post<WalletResponse>(`${this.apiUrl}/withdraw`, request, { headers: this.getHeaders() });
+    }
+      return throwError(() => new Error('Invalid transaction type'));
   }
+
 }
-

@@ -15,38 +15,36 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class WalletComponent implements OnInit {
-  wallets: WalletResponse[] = [];
-  currencies: CurrencyResponse[] = [];
-  newWallet: CreateWalletRequest = { userId: 0, currencyCode: '', initialBalance: 0 };
-  updateBalance: UpdateBalanceRequest = { amount: 0, currencyCode: '' };
-  transaction: TransactionRequest = { transactionType: '', walletId: 0, targetWalletId: 0, amount: 0, description: '', moneyMethod: '' };
-  depositRequest: TransactionRequest = { walletId: 0, amount: 0, moneyMethod: '' };
-  error: string = '';
+    wallets: WalletResponse[] = [];
+    currencies: CurrencyResponse[] = [];
+    newWallet: CreateWalletRequest = { userId: 0, currencyCode: '', initialBalance: 0 };
+    updateBalance: UpdateBalanceRequest = { amount: 0, currencyCode: '' };
+    transaction: TransactionRequest = { transactionType: '', walletId: 0, targetWalletId: 0, amount: 0, description: '', moneyMethod: '' };
+    selectedWalletForUpdate: WalletResponse | null = null;
+    error: string = '';
 
-  constructor(
-    private walletService: WalletService,
-    private currencyService: CurrencyService,
-    private router: Router
-  ) { }
+    constructor(
+      private walletService: WalletService,
+      private currencyService: CurrencyService,
+      private router: Router
+    ) { }
 
-  ngOnInit(): void {
-    this.loadWallets();
-    this.loadCurrencies();
-  }
+    ngOnInit(): void {
+      this.loadWallets();
+      this.loadCurrencies();
+    }
 
-  loadWallets(): void {
-    this.walletService.getCurrentWallets().subscribe({
-      next: (data) => {
-        this.wallets = data; // This will already be filtered by userId
-      },
-      error: (error) => {
-        console.error('Error fetching wallets:', error);
-        this.handleError(error);
-      }
-    });
-  }
-  
-  
+    loadWallets(): void {
+        this.walletService.getUserWallets().subscribe({
+            next: (data) => {
+                this.wallets = data;
+            },
+            error: (error) => {
+                console.error('Error fetching wallets:', error);
+                this.handleError(error);
+            }
+        });
+    }
 
   loadCurrencies(): void {
     this.currencyService.getAllCurrencies().subscribe({
@@ -73,26 +71,40 @@ export class WalletComponent implements OnInit {
     });
   }
 
-  updateWalletBalance(walletId: number): void {
-    this.walletService.updateBalance(walletId, this.updateBalance).subscribe({
-      next: (data) => {
-        const index = this.wallets.findIndex(w => w.id === data.id);
-        if (index !== -1) {
-          this.wallets[index] = data;
-        }
-        this.updateBalance = { amount: 0, currencyCode: '' };
-      },
-      error: (error) => {
-        console.error('Error updating wallet balance:', error);
-        this.handleError(error);
+   selectWalletForUpdate(wallet: WalletResponse): void {
+        this.selectedWalletForUpdate = wallet;
+   }
+
+   cancelUpdate(): void{
+        this.selectedWalletForUpdate = null;
+        this.updateBalance = {amount:0, currencyCode: ''}
+    }
+
+
+  updateWalletBalance(): void {
+      if (this.selectedWalletForUpdate) {
+          this.walletService.updateBalance(this.selectedWalletForUpdate.id, this.updateBalance).subscribe({
+            next: (data) => {
+              const index = this.wallets.findIndex(w => w.id === data.id);
+              if (index !== -1) {
+                this.wallets[index] = data;
+              }
+                this.selectedWalletForUpdate = null;
+                this.updateBalance = { amount: 0, currencyCode: '' };
+            },
+            error: (error) => {
+              console.error('Error updating wallet balance:', error);
+              this.handleError(error);
+            }
+          });
       }
-    });
   }
 
-  performTransaction(): void {
+
+    performTransaction(): void {
     this.walletService.performTransaction(this.transaction).subscribe({
       next: (data) => {
-        this.loadWallets(); // Reload wallets to reflect changes
+        this.loadWallets();
         this.transaction = { transactionType: '', walletId: 0, targetWalletId: 0, amount: 0, description: '', moneyMethod: '' };
       },
       error: (error) => {
@@ -102,26 +114,12 @@ export class WalletComponent implements OnInit {
     });
   }
 
-  deposit(): void {
-    this.walletService.deposit(this.depositRequest).subscribe({
-      next: (data) => {
-        this.loadWallets(); // Reload wallets to reflect changes
-        this.depositRequest = { walletId: 0, amount: 0, moneyMethod: '' };
-      },
-      error: (error) => {
-        console.error('Error depositing:', error);
-        this.handleError(error);
-      }
-    });
-  }
-
   private handleError(error: any): void {
-    if (error.status === 401) {
-      this.error = 'You are not authorized. Please log in.';
-      this.router.navigate(['/login']);
-    } else {
-      this.error = 'An error occurred. Please try again later.';
-    }
+      if (error.status === 401) {
+          this.error = 'You are not authorized. Please log in.';
+          this.router.navigate(['/login']);
+      } else {
+          this.error = 'An error occurred. Please try again later.';
+      }
   }
 }
-

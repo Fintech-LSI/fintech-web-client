@@ -13,6 +13,7 @@ import {StockchartComponent} from './components/stockchart/stockchart.component'
 import {PredictionsComponent} from './components/predictions/predictions.component';
 import { WalletComponent } from './components/wallet/wallet.component';
 import { CurrencyComponent } from './components/currency/currency.component';
+import { FavoriteCurrencyComponent } from './components/favorite-currency/favorite-currency.component';
 
 const routes: Routes = [
 
@@ -32,7 +33,8 @@ const routes: Routes = [
       { path: 'stockchart', component: StockchartComponent },
       { path: 'predictions', component: PredictionsComponent },
       { path: 'wallet', component: WalletComponent },
-      { path: 'currencies' , component: CurrencyComponent }
+      { path: 'currencies' , component: CurrencyComponent },
+      {path: 'favcurrency' , component: FavoriteCurrencyComponent }
     ],
   },
 ];

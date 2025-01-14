@@ -13,7 +13,7 @@ import { UserService } from '../../services/user/user.service';
 export class DashboardComponent implements OnInit {
   isSidebarCollapsed = false;
   userName = '';
-  profilePictureUrl: string = '/assets/default-profile.png';
+  profilePictureUrl: string = '/assets/none.png';
   isDarkMode = false;
 
   navigation: NavGroup[] = [
@@ -44,9 +44,15 @@ export class DashboardComponent implements OnInit {
           isActive: false
         },
         {
-          title: 'Currencies',
+          title: 'Currencies (ADMIN)',
           icon: 'fa-exchange-alt',
           path: '/dashboard/currencies',
+          isActive: false
+        },
+        {
+          title: 'Fav Currencies',
+          icon: 'fa-exchange-alt',
+          path: '/dashboard/favcurrency',
           isActive: false
         },
       ]
@@ -91,7 +97,7 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
-    //this.loadUserData();
+    this.loadUserData();
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
