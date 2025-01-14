@@ -50,6 +50,19 @@ export class DashboardComponent implements OnInit {
           isActive: false
         },
         {
+          title: 'Loan',
+          icon: 'fa-solid fa-coins',
+          path: '/dashboard/loan',
+          isActive: false
+        },
+        {
+          title: 'Loan Manager',
+          icon: 'fa-solid fa-money-bills',
+          path: '/dashboard/loan-manager',
+          isActive: false
+        },
+        ,
+        {
           title: 'Fav Currencies',
           icon: 'fa-exchange-alt',
           path: '/dashboard/favcurrency',
@@ -123,7 +136,7 @@ export class DashboardComponent implements OnInit {
         }
       });
     } else {
-      this.router.navigate(['/login']); // Redirect to login if no token
+      //this.router.navigate(['/login']); // Redirect to login if no token
     }
   }
 

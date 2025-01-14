@@ -1,0 +1,143 @@
+<head>
+  <!-- ... other head elements ... -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<div class="container mx-auto ">
+  <h2 class="text-2xl font-bold mb-4 text-gray-800  ">
+    Loan Management
+  </h2>
+
+  <div class="card bg-white shadow-xl mb-6">
+    <div class="card-body">
+      <div *ngIf="showAlert" class="alert" [class.alert-success]="alertType === 'success'"
+           [class.alert-error]="alertType === 'error'" [class.alert-info]="alertType === 'info'">
+        <div>
+                    <span class="flex items-center">
+                      <i *ngIf="alertType === 'success'" class="fas fa-check-circle mr-2 text-green-500"></i>
+                      <i *ngIf="alertType === 'error'" class="fas fa-times-circle mr-2 text-red-500"></i>
+                      {{ alertMessage }}
+                    </span>
+        </div>
+      </div>
+      <h3 class="card-title text-xl font-semibold text-gray-700 flex items-center mb-4">
+        <i class="fas fa-hand-holding-dollar mr-2"></i>
+        Create Loan
+      </h3>
+      <div class="grid grid-cols-2 gap-6">
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text text-gray-600"><i class="fas fa-user mr-1"></i> User ID</span>
+          </label>
+          <input type="number" placeholder="User Id" class="input input-bordered w-full" [(ngModel)]="loanRequest.userId" />
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text text-gray-600"><i class="fas fa-file-lines mr-1"></i> Loan Intent</span>
+          </label>
+          <select class="select select-bordered w-full" [(ngModel)]="loanRequest.loanIntent">
+            <option *ngFor="let intent of loanIntentOptions" [value]="intent">{{intent}}</option>
+          </select>
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text text-gray-600"><i class="fas fa-scale-balanced mr-1"></i> Loan Grade</span>
+          </label>
+          <select class="select select-bordered w-full" [(ngModel)]="loanRequest.loanGrade">
+            <option *ngFor="let grade of loanGradeOptions" [value]="grade">{{grade}}</option>
+          </select>
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text text-gray-600"><i class="fas fa-hand-holding-dollar mr-1"></i> Loan Amount</span>
+          </label>
+          <input type="number" placeholder="Loan Amount" class="input input-bordered w-full" [(ngModel)]="loanRequest.loanAmount" />
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text text-gray-600"><i class="fas fa-percent mr-1"></i> Loan Interest Rate</span>
+          </label>
+          <input type="number" placeholder="Loan Interest Rate" class="input input-bordered w-full" [(ngModel)]="loanRequest.loanInterestRate" />
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text text-gray-600"><i class="fas fa-percent mr-1"></i> Loan Percent Income</span>
+          </label>
+          <input type="number" placeholder="Loan Percent Income" class="input input-bordered w-full" [(ngModel)]="loanRequest.loanPercentIncome" />
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text text-gray-600"><i class="fas fa-file-lines mr-1"></i> CB Person Default On File</span>
+          </label>
+          <select class="select select-bordered w-full" [(ngModel)]="loanRequest.cbPersonDefaultOnFile">
+            <option *ngFor="let option of cbPersonDefaultOnFileOptions" [value]="option">{{option}}</option>
+          </select>
+        </div>
+        <div class="form-control">
+          <label class="label">
+            <span class="label-text text-gray-600"><i class="fas fa-calendar-check mr-1"></i> CB Person Credit History Length</span>
+          </label>
+          <input type="number" placeholder="CB Person Credit History Length" class="input input-bordered w-full" [(ngModel)]="loanRequest.cbPersonCredHistLength" />
+        </div>
+      </div>
+      <div class="card-actions justify-end mt-4">
+        <button class="btn btn-primary flex items-center" (click)="createLoan()">
+          Create Loan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="userLoans && userLoans.length > 0" class="card bg-white shadow-xl mt-6">
+    <div class="card-body">
+      <h3 class="card-title text-xl font-semibold text-gray-700 flex items-center mb-4">
+        <i class="fas fa-chart-line mr-2"></i>
+        Loan Details
+      </h3>
+      <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
+          <thead>
+          <tr>
+            <th>Loan ID</th>
+            <th>Person Age</th>
+            <th>Person Income</th>
+            <th>Home Ownership</th>
+            <th>Employment Length</th>
+            <th>Loan Intent</th>
+            <th>Loan Grade</th>
+            <th>Loan Amount</th>
+            <th>Interest Rate</th>
+            <th>Loan Status</th>
+            <th>Percent Income</th>
+            <th>Default On File</th>
+            <th>Credit History Length</th>
+            <th>Proba Approval</th>
+            <th>Proba Denial</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let loan of userLoans">
+            <td>{{loan.loan_id}}</td>
+            <td>{{loan.person_age}}</td>
+            <td>{{loan.person_income}}</td>
+            <td>{{loan.person_home_ownership}}</td>
+            <td>{{loan.person_emp_length}}</td>
+            <td>{{loan.loan_intent}}</td>
+            <td>{{loan.loan_grade}}</td>
+            <td>{{loan.loan_amnt}}</td>
+            <td>{{loan.loan_int_rate}}</td>
+            <td>{{loan.loan_status}}</td>
+            <td>{{loan.loan_percent_income}}</td>
+            <td>{{loan.cb_person_default_on_file}}</td>
+            <td>{{loan.cb_person_cred_hist_length}}</td>
+            <td>{{loan.probability_of_approval}}</td>
+            <td>{{loan.probability_of_denial}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
