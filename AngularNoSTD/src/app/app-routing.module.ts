@@ -15,6 +15,7 @@ import { WalletComponent } from './components/wallet/wallet.component';
 import { CurrencyComponent } from './components/currency/currency.component';
 import {LoanComponent} from './components/loan/loan.component';
 import {LoanManagerComponent} from './components/loan-manager/loan-manager.component';
+import { FavoriteCurrencyComponent } from './components/favorite-currency/favorite-currency.component';
 
 const routes: Routes = [
 
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'currencies' , component: CurrencyComponent },
       { path: 'loan' , component: LoanComponent },
       { path: 'loan-manager' , component: LoanManagerComponent },
+      {path: 'favcurrency' , component: FavoriteCurrencyComponent }
     ],
   },
 ];
