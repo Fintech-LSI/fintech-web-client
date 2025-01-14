@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { NavGroup, NavItem } from './types/navigation'; // Corrected import path
 import { UserService } from '../../services/user/user.service';
 
 @Component({
@@ -9,13 +11,92 @@ import { UserService } from '../../services/user/user.service';
   standalone: false
 })
 export class DashboardComponent implements OnInit {
+  isSidebarCollapsed = false;
+  userName = '';
   profilePictureUrl: string = '/assets/default-profile.png';
-  userName: string = '';
+  isDarkMode = false;
 
-  constructor(private router: Router, private userService: UserService) {}
+  navigation: NavGroup[] = [
+    {
+      title: 'Overview',
+      items: [
+        {
+          title: 'Dashboard',
+          icon: 'fa-tachometer-alt',
+          path: '/dashboard/portfolio',
+          isActive: false
+        },
+        {
+          title: 'Analytics',
+          icon: 'fa-chart-line',
+          path: '/dashboard/stocks',
+          isActive: false
+        }
+      ]
+    },
+    {
+      title: 'Finance',
+      items: [
+        {
+          title: 'Wallet',
+          icon: 'fa-wallet',
+          path: '/dashboard/wallet',
+          isActive: false
+        },
+        {
+          title: 'Currencies',
+          icon: 'fa-exchange-alt',
+          path: '/dashboard/currencies',
+          isActive: false
+        },
+      ]
+    },
+    {
+      title: 'AI & Reports',
+      items: [
+        {
+          title: 'Predictions',
+          icon: 'fa-robot',
+          path: '/dashboard/predictions',
+          isActive: false
+        },
+        {
+          title: 'Activity',
+          icon: 'fa-file-invoice',
+          path: '/dashboard/activity',
+          isActive: false
+        }
+      ]
+    },
+    {
+      title: 'Account',
+      items: [
+        {
+          title: 'Settings',
+          icon: 'fa-cog',
+          path: '/dashboard/profile',
+          isActive: false
+        },
+        {
+          title: 'Log Out',
+          icon: 'fa-sign-out-alt',
+          path: '/login', // Updated to use /login instead of /logout
+          isActive: false
+        }
+      ]
+    }
+  ];
+
+
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() {
-    this.loadUserData();
+    //this.loadUserData();
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updateActiveState();
+      });
   }
 
   loadUserData() {
@@ -32,15 +113,36 @@ export class DashboardComponent implements OnInit {
         error: (err) => {
           console.error('Failed to load user data', err);
           // Handle error (e.g., redirect to login if token is invalid)
+          this.router.navigate(['/login']); // Redirect to login on error
         }
       });
+    } else {
+      this.router.navigate(['/login']); // Redirect to login if no token
     }
+  }
+
+
+  private updateActiveState() {
+    this.navigation.forEach(group => {
+      group.items.forEach((item: NavItem) => { // Added explicit type for 'item'
+        item.isActive = this.router.url === item.path;
+      });
+    });
+  }
+
+
+  toggleSidebar() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    document.documentElement.classList.toggle('dark');
   }
 
   logOut() {
     localStorage.removeItem('token');
     console.log('User logged out');
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']); // Redirect to login after logout
   }
 }
-
