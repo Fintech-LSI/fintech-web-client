@@ -54,9 +54,7 @@ import { FavoriteCurrencyComponent } from './components/favorite-currency/favori
     CurrencyComponent,
     LoanComponent,
     LoanManagerComponent,
-    FavoriteCurrencyComponent
-    
-  
+    FavoriteCurrencyComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,16 +66,16 @@ import { FavoriteCurrencyComponent } from './components/favorite-currency/favori
     JwtModule,
     FontAwesomeModule,
     FormsModule,
-    
 
-    
+
+
   ],
   providers: [
     provideClientHydration(),
     provideHttpClient(withFetch()),
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
-    
+
   ],
   bootstrap: [AppComponent]
 })
