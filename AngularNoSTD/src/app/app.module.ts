@@ -53,7 +53,7 @@ import { FavoriteCurrencyComponent } from './components/favorite-currency/favori
     WalletComponent,
     CurrencyComponent,
     LoanComponent,
-    LoanManagerComponent
+    LoanManagerComponent,
     FavoriteCurrencyComponent
     
   

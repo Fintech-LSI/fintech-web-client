@@ -12,6 +12,11 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
   // Validate token and get user info
   validateToken(token: string): Observable<any> {
     return this.http.post(`${this.authUrl}/validate-token`, { token });
@@ -19,21 +24,24 @@ export class UserService {
 
   // Get user by email (for profile data)
   getUserByEmail(email: string): Observable<any> {
-    return this.http.get(`${this.userUrl}/email/${email}`);
+    return this.http.get(`${this.userUrl}/email/${email}`, { headers: this.getHeaders() });
+  }
+
+  // Get user by ID
+  getUserById(id: number): Observable<any> {
+    return this.http.get(`${this.userUrl}/${id}`,{ headers: this.getHeaders() })
   }
 
   // Update user profile
-  updateProfile(id: number, data: { firstName: string; lastName: string; email: string }): Observable<any> {
-    return this.http.put(`${this.userUrl}/${id}`, data);
+  updateProfile(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.userUrl}/${id}`, data, { headers: this.getHeaders() });
   }
 
-  // Upload profile picture
-  uploadProfilePicture(file: File): Observable<any> {
-    const headers = new HttpHeaders();
+  // Update user profile picture
+  updateProfilePicture(id: number, file: File): Observable<any> {
     const formData = new FormData();
-    formData.append('file', file);
-
-    return this.http.post(`${this.userUrl}/upload-image`, formData, { headers });
+    formData.append('imageFile', file);
+    return this.http.patch(`${this.userUrl}/${id}`, formData, { headers: this.getHeaders() });
   }
 
   // Get image URL (public access)
@@ -41,3 +49,4 @@ export class UserService {
     return `${this.imgUrl}/${filename}`;
   }
 }
+
