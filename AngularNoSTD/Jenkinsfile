@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION      = 'us-east-1'
-        IMAGE_NAME      = 'angular-frontend'
-        ECR_REGISTRY    = 'public.ecr.aws/z1z0w2y6'
-        DOCKER_BUILD_NUMBER = "${BUILD_NUMBER}"
-        EKS_CLUSTER_NAME = 'main-cluster'
-        NAMESPACE = 'fintech'
-        SONAR_PROJECT_KEY = 'angular-fronted'
-        SONAR_SERVER_URL = 'http://54.86.47.1:9000'
+        AWS_REGION           = 'us-east-1'
+        IMAGE_NAME           = 'angular-frontend'
+        ECR_REGISTRY         = 'public.ecr.aws/z1z0w2y6'
+        DOCKER_BUILD_NUMBER  = "${BUILD_NUMBER}"
+        EKS_CLUSTER_NAME     = 'main-cluster'
+        NAMESPACE            = 'fintech'
+        SONAR_PROJECT_KEY    = 'angular-fronted'
+        SONAR_SERVER_URL     = 'http://54.86.47.1:9000'
     }
 
     stages {
@@ -19,7 +19,8 @@ pipeline {
             }
         }
 
-        /*stage('SonarQube Analysis') {
+        /*
+        stage('SonarQube Analysis') {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
@@ -46,9 +47,11 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
+        */
 
-        /*stage('Quality Gate') {
+        /*
+        stage('Quality Gate') {
             steps {
                 script {
                     try {
@@ -66,7 +69,8 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
+        */
 
         stage('Install Dependencies') {
             steps {
@@ -76,7 +80,8 @@ pipeline {
             }
         }
 
-        /*stage('Run Tests') {
+        /*
+        stage('Run Tests') {
             steps {
                 dir('AngularNoSTD') {
                     script {
@@ -88,7 +93,8 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
+        */
 
         stage('Build') {
             steps {
@@ -172,6 +178,7 @@ pipeline {
                 }
             }
         }
+    }
 
     post {
         success {
