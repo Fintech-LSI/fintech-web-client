@@ -4,12 +4,6 @@ metadata:
   name: angular-frontend-config
   namespace: fintech
 data:
-  # Base URLs for each microservice
-  AUTH_SERVICE_URL: "http://auth-service:8090"
-  CONFIG_SERVICE_URL: "http://config-service:8888"
-  LOANS_SERVICE_URL: "http://loans-service:8085"
-  NOTIFICATION_SERVICE_URL: "http://notification-service:8095"
-  # Add any other environment-specific configurations
+  API_BASE_URL: "http://gateway-service:8222"  # Single gateway service URL
   ENV_NAME: "production"
-  # If you have CORS settings
   ALLOWED_ORIGINS: "*"
