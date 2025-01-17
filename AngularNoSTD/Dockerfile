@@ -22,11 +22,11 @@ FROM nginx:alpine
 # Remove default Nginx configuration
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy custom Nginx config
+# Copy custom Nginx config - Updated path to match your structure
 COPY nginx/nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 # Copy built assets from the builder stage
-COPY --from=builder /app/dist/AngularNoSTD /usr/share/nginx/html
+COPY --from=builder /app/dist/angular-no-std /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
