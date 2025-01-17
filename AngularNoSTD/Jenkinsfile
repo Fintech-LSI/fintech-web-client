@@ -121,7 +121,8 @@ pipeline {
 
                             // Build and tag image
                             sh """
-                                docker build -t ${ECR_REGISTRY}/${IMAGE_NAME}:latest . --no-cache
+                                docker build -t ${ECR_REGISTRY}/${IMAGE_NAME}:latest -f AngularNoSTD/Dockerfile AngularNoSTD --no-cache
+
                             """
 
                             // Push the latest tag
