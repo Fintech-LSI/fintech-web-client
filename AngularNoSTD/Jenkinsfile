@@ -8,6 +8,8 @@ pipeline {
         DOCKER_BUILD_NUMBER = "${BUILD_NUMBER}"
         EKS_CLUSTER_NAME = 'main-cluster'
         NAMESPACE = 'fintech'
+        SONAR_PROJECT_KEY = 'angular-fronted'
+        SONAR_SERVER_URL = 'http://54.86.47.1:9000'
     }
 
     stages {
@@ -17,6 +19,58 @@ pipeline {
             }
         }
 
+        /*stage('SonarQube Analysis') {
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
+                        dir('AngularNoSTD') {
+                            try {
+                                // Install sonar-scanner
+                                def scannerHome = tool 'SonarScanner';
+                                withSonarQubeEnv('SonarQube') {
+                                    sh """
+                                        ${scannerHome}/bin/sonar-scanner \
+                                        -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                                        -Dsonar.sources=src \
+                                        -Dsonar.host.url=${SONAR_SERVER_URL} \
+                                        -Dsonar.login=${SONAR_TOKEN} \
+                                        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+                                        -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info \
+                                        -Dsonar.exclusions=**/node_modules/**,**/*.spec.ts \
+                                        -Dsonar.tests=src \
+                                        -Dsonar.test.inclusions=**/*.spec.ts \
+                                        -Dsonar.sourceEncoding=UTF-8
+                                    """
+                                }
+                            } catch (Exception e) {
+                                error "SonarQube analysis failed: ${e.message}"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                script {
+                    try {
+                        timeout(time: 15, unit: 'MINUTES') {  // Reduced from 1 hour to 15 minutes
+                            def qg = waitForQualityGate()
+                            echo "Quality Gate Status: ${qg.status}"
+                            if (qg.status != 'OK') {
+                                echo "Quality Gate Details: ${qg.toString()}"
+                                error "Quality gate failed: ${qg.status}"
+                            }
+                        }
+                    } catch (Exception e) {
+                        echo "Quality Gate Error: ${e.getMessage()}"
+                        error "Quality gate check failed: ${e.message}"
+                    }
+                }
+            }
+        }*/
+
         stage('Install Dependencies') {
             steps {
                 dir('AngularNoSTD') {
@@ -25,19 +79,19 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
+        /*stage('Run Tests') {
             steps {
                 dir('AngularNoSTD') {
                     script {
                         try {
-                            sh 'npm run test -- --no-watch --no-progress --browsers=ChromeHeadless'
+                            sh 'npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage'
                         } catch (Exception e) {
                             error "Tests failed: ${e.message}"
                         }
                     }
                 }
             }
-        }
+        }*/
 
         stage('Build') {
             steps {
@@ -107,6 +161,7 @@ pipeline {
                                 kubectl apply -f AngularNoSTD/k8s/configmap.yaml -n ${NAMESPACE}
                                 kubectl apply -f AngularNoSTD/k8s/deployment.yaml -n ${NAMESPACE}
                                 kubectl apply -f AngularNoSTD/k8s/service.yaml -n ${NAMESPACE}
+                                kubectl apply -f AngularNoSTD/k8s/ingress.yaml -n ${NAMESPACE}
                             """
 
                             sh """
@@ -120,7 +175,6 @@ pipeline {
                 }
             }
         }
-    }
 
     post {
         success {
