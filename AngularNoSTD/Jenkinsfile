@@ -5,9 +5,8 @@ pipeline {
         AWS_REGION      = 'us-east-1'
         IMAGE_NAME      = 'angular-frontend'
         ECR_REGISTRY    = 'public.ecr.aws/z1z0w2y6'
-        DOCKER_BUILD_NUMBER = "${BUILD_NUMBER}"
         EKS_CLUSTER_NAME = 'main-cluster'
-        NAMESPACE = 'fintech'
+        NAMESPACE       = 'fintech'
         SONAR_PROJECT_KEY = 'angular-fronted'
         SONAR_SERVER_URL = 'http://54.86.47.1:9000'
     }
@@ -19,55 +18,6 @@ pipeline {
             }
         }
 
-        /*stage('SonarQube Analysis') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_TOKEN')]) {
-                        dir('AngularNoSTD') {
-                            try {
-                                // Install sonar-scanner
-                                def scannerHome = tool 'SonarScanner';
-                                withSonarQubeEnv('SonarQube') {
-                                    sh """
-                                        ${scannerHome}/bin/sonar-scanner \
-                                        -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
-                                        -Dsonar.sources=src \
-                                        -Dsonar.host.url=${SONAR_SERVER_URL} \
-                                        -Dsonar.login=${SONAR_TOKEN} \
-                                        -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
-                                        -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info \
-                                        -Dsonar.sourceEncoding=UTF-8
-                                    """
-                                }
-                            } catch (Exception e) {
-                                error "SonarQube analysis failed: ${e.message}"
-                            }
-                        }
-                    }
-                }
-            }
-        }*/
-
-        /*stage('Quality Gate') {
-            steps {
-                script {
-                    try {
-                        timeout(time: 15, unit: 'MINUTES') {  // Reduced from 1 hour to 15 minutes
-                            def qg = waitForQualityGate()
-                            echo "Quality Gate Status: ${qg.status}"
-                            if (qg.status != 'OK') {
-                                echo "Quality Gate Details: ${qg.toString()}"
-                                error "Quality gate failed: ${qg.status}"
-                            }
-                        }
-                    } catch (Exception e) {
-                        echo "Quality Gate Error: ${e.getMessage()}"
-                        error "Quality gate check failed: ${e.message}"
-                    }
-                }
-            }
-        }*/
-
         stage('Install Dependencies') {
             steps {
                 dir('AngularNoSTD') {
@@ -76,21 +26,7 @@ pipeline {
             }
         }
 
-        /*stage('Run Tests') {
-            steps {
-                dir('AngularNoSTD') {
-                    script {
-                        try {
-                            sh 'npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage'
-                        } catch (Exception e) {
-                            error "Tests failed: ${e.message}"
-                        }
-                    }
-                }
-            }
-        }*/
-
-        stage('Build') {
+        stage('Build Angular') {
             steps {
                 dir('AngularNoSTD') {
                     script {
@@ -115,19 +51,13 @@ pipeline {
                     ]]) {
                         try {
                             // Login to ECR
-                            sh """
-                                aws ecr-public get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}
-                            """
+                            sh "aws ecr-public get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}"
 
-                            // Build and tag image
-                            sh """
-                                docker build -t ${ECR_REGISTRY}/${IMAGE_NAME}:latest -f AngularNoSTD/Dockerfile AngularNoSTD --no-cache
+                            def imageLatest = "${ECR_REGISTRY}/${IMAGE_NAME}:latest"
 
-                            """
-
-                            // Push the latest tag
                             sh """
-                                docker push ${ECR_REGISTRY}/${IMAGE_NAME}:latest
+                                docker build -t ${imageLatest} -f AngularNoSTD/Dockerfile AngularNoSTD --no-cache
+                                docker push ${imageLatest}
                             """
                         } catch (Exception e) {
                             error "Docker build/push failed: ${e.message}"
@@ -147,14 +77,13 @@ pipeline {
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                     ]]) {
                         try {
-                            sh """
-                                aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME}
-                            """
+                            // Configure kubectl
+                            sh "aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME}"
 
-                            sh """
-                                kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
-                            """
+                            // Create namespace if it doesn't exist
+                            sh "kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -"
 
+                            // Apply K8s configurations
                             sh """
                                 kubectl apply -f AngularNoSTD/k8s/configmap.yaml -n ${NAMESPACE}
                                 kubectl apply -f AngularNoSTD/k8s/deployment.yaml -n ${NAMESPACE}
@@ -162,8 +91,14 @@ pipeline {
                                 kubectl apply -f AngularNoSTD/k8s/ingress.yaml -n ${NAMESPACE}
                             """
 
+                            // Wait for rollout to complete
+                            sh "kubectl rollout status deployment/frontend -n ${NAMESPACE} --timeout=300s"
+
+                            // Verify deployment
                             sh """
-                                echo "Checking deployment status:"
+                                echo "Deployment Status:"
+                                kubectl get deployment frontend -n ${NAMESPACE}
+                                echo "Pod Status:"
                                 kubectl get pods -n ${NAMESPACE} -l app=frontend
                             """
                         } catch (Exception e) {
@@ -173,6 +108,7 @@ pipeline {
                 }
             }
         }
+    }
 
     post {
         success {
@@ -182,10 +118,11 @@ pipeline {
             echo 'Pipeline failed! Check the logs for details.'
         }
         always {
-            sh """
-                docker rmi ${ECR_REGISTRY}/${IMAGE_NAME}:latest || true
-            """
-            cleanWs()
+            script {
+                // Clean up Docker images
+                sh "docker rmi ${ECR_REGISTRY}/${IMAGE_NAME}:latest || true"
+                cleanWs()
+            }
         }
     }
 }
