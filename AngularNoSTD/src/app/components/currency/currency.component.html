@@ -1,0 +1,59 @@
+<div class="container mx-auto ">
+  <h2 class="text-2xl font-bold mb-4">Currencies</h2>
+
+  <div class="mb-8 card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h3 class="text-xl font-semibold mb-2 card-title">Add New Currency</h3>
+      <form (ngSubmit)="addCurrency()" class="space-y-4">
+        <div class="form-control">
+          <label for="name" class="label">
+            <span class="label-text">Name</span>
+          </label>
+          <input type="text" id="name" name="name" [(ngModel)]="newCurrency.name" required
+                 class="input input-bordered w-full"/>
+        </div>
+        <div class="form-control">
+          <label for="code" class="label">
+            <span class="label-text">Code</span>
+          </label>
+          <input type="text" id="code" name="code" [(ngModel)]="newCurrency.code" required
+                 class="input input-bordered w-full"/>
+        </div>
+        <div class="form-control">
+          <label for="exchangeRate" class="label">
+            <span class="label-text">Exchange Rate</span>
+          </label>
+          <input type="number" id="exchangeRate" name="exchangeRate" [(ngModel)]="newCurrency.exchangeRate" required
+                 class="input input-bordered w-full"/>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Add Currency
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h3 class="text-xl font-semibold mb-2 card-title">Currency List</h3>
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Code</th>
+            <th>Exchange Rate</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let currency of currencies">
+            <td>{{ currency.name }}</td>
+            <td>{{ currency.code }}</td>
+            <td>{{ currency.exchangeRate }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

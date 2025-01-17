@@ -33,7 +33,8 @@ export type ChartOptions = {
 @Component({
   selector: 'app-predictions',
   templateUrl: './predictions.component.html',
-  styleUrl: './predictions.component.scss'
+  styleUrl: './predictions.component.scss',
+  standalone: false
 })
 export class PredictionsComponent implements OnInit {
   @ViewChild("lineChart") lineChart!: ChartComponent;

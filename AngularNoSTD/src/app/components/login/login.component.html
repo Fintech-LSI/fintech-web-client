@@ -1,15 +1,24 @@
 <div class="flex items-center justify-center min-h-screen bg-gray-100 relative">
   <!-- Return to Home Button -->
-  <button (click)="goHome()" class="absolute top-4 left-4 bg-white p-2 rounded-full shadow-md hover:bg-gray-200 focus:outline-none">
+  <button
+    (click)="goHome()"
+    class="absolute top-4 left-4 bg-white p-2 rounded-full shadow-md hover:bg-gray-200 focus:outline-none"
+    aria-label="Return to Home"
+  >
     <fa-icon [icon]="faHome" class="text-gray-800"></fa-icon>
   </button>
 
   <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
     <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Login</h2>
 
+    <!-- Dynamic Error Message -->
+    <div *ngIf="error" class="bg-red-100 text-red-800 p-3 rounded mb-4">
+      {{ error }}
+    </div>
+
     <!-- Login Form -->
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <div>
+      <div class="mb-4">
         <label for="email" class="block text-gray-700 font-medium">Email Address</label>
         <input
           id="email"
@@ -18,9 +27,12 @@
           class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your email"
         />
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
+          A valid email is required.
+        </div>
       </div>
 
-      <div>
+      <div class="mb-4">
         <label for="password" class="block text-gray-700 font-medium">Password</label>
         <input
           id="password"
@@ -29,11 +41,18 @@
           class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your password"
         />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+          Password is required.
+        </div>
       </div>
 
-      <div class="flex justify-between items-center">
+      <div class="flex justify-between items-center mb-4">
         <label class="inline-flex items-center text-sm text-gray-600">
-          <input type="checkbox" class="form-checkbox text-blue-500" formControlName="rememberMe" />
+          <input
+            type="checkbox"
+            class="form-checkbox text-blue-500"
+            formControlName="rememberMe"
+          />
           <span class="ml-2">Remember me</span>
         </label>
         <a href="#" class="text-sm text-blue-600 hover:underline">Forgot Password?</a>
@@ -51,7 +70,7 @@
     <div class="mt-4 text-center">
       <p class="text-sm text-gray-600">
         Don't have an account?
-        <a href="/register" class="text-blue-600 hover:underline">Sign up here</a>
+        <a routerLink="/register" class="text-blue-600 hover:underline">Sign up here</a>
       </p>
     </div>
   </div>

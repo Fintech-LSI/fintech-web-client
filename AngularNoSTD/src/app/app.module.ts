@@ -18,10 +18,21 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { NgApexchartsModule } from 'ng-apexcharts'; // Correct import for NgApexchartsModule
 import { FormsModule } from '@angular/forms';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 import { StockchartComponent } from './components/stockchart/stockchart.component';
 import { PredictionsComponent } from './components/predictions/predictions.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { NgModel } from '@angular/forms';
+import { jwtDecode } from 'jwt-decode';
+import { icon } from '@fortawesome/fontawesome-svg-core';
+import { WalletComponent } from './components/wallet/wallet.component';
+import { CurrencyComponent } from './components/currency/currency.component';
+import { LoanComponent } from './components/loan/loan.component';
+import { LoanManagerComponent } from './components/loan-manager/loan-manager.component';
+import { FavoriteCurrencyComponent } from './components/favorite-currency/favorite-currency.component';
+
+
 
 @NgModule({
   declarations: [
@@ -39,6 +50,11 @@ import { PredictionsComponent } from './components/predictions/predictions.compo
     PortfolioComponent,
     StockchartComponent,
     PredictionsComponent,
+    WalletComponent,
+    CurrencyComponent,
+    LoanComponent,
+    LoanManagerComponent,
+    FavoriteCurrencyComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,12 +62,20 @@ import { PredictionsComponent } from './components/predictions/predictions.compo
     AppRoutingModule,
     ReactiveFormsModule,
     NgApexchartsModule,
-    FormsModule,
     HttpClientModule,
+    JwtModule,
+    FontAwesomeModule,
+    FormsModule,
+
+
+
   ],
   providers: [
     provideClientHydration(),
-    provideHttpClient(withFetch())
+    provideHttpClient(withFetch()),
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+
   ],
   bootstrap: [AppComponent]
 })
