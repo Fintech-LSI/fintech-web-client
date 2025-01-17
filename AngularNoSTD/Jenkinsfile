@@ -91,15 +91,19 @@ pipeline {
                                 kubectl apply -f AngularNoSTD/k8s/ingress.yaml -n ${NAMESPACE}
                             """
 
-                            // Wait for rollout to complete
-                            sh "kubectl rollout status deployment/frontend -n ${NAMESPACE} --timeout=300s"
-
-                            // Verify deployment
+                            // Verify deployment status
                             sh """
-                                echo "Deployment Status:"
+                                echo "Checking deployment status..."
                                 kubectl get deployment frontend -n ${NAMESPACE}
-                                echo "Pod Status:"
+
+                                echo "Checking pod status..."
                                 kubectl get pods -n ${NAMESPACE} -l app=frontend
+
+                                echo "Checking service status..."
+                                kubectl get service angular-frontend -n ${NAMESPACE}
+
+                                echo "Checking ingress status..."
+                                kubectl get ingress angular-frontend-ingress -n ${NAMESPACE}
                             """
                         } catch (Exception e) {
                             error "Deployment failed: ${e.message}"

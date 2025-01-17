@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: angular-frontend-deploy
+  name: frontend
   namespace: fintech
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: angular-frontend
+      app: frontend
   template:
     metadata:
       labels:
-        app: angular-frontend
+        app: frontend
     spec:
       containers:
-        - name: angular-frontend
+        - name: frontend
           image: public.ecr.aws/z1z0w2y6/angular-frontend:latest
           ports:
             - containerPort: 80
