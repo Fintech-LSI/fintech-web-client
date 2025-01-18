@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private authUrl = 'http://gateway-service:8222/api/auth';
-  private userUrl = 'http://gateway-service:8222/api/users';
-  private imgUrl = 'http://gateway-service:8222/users/public/images';
+  private authUrl = 'http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/api/auth';
+  private userUrl = 'http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/api/users';
+  private imgUrl = 'http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/users/public/images';
 
   constructor(private http: HttpClient) {}
 
