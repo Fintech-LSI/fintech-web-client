@@ -41,7 +41,7 @@ interface PredictionResponse {
   providedIn: 'root'
 })
 export class LoanService {
-  private apiUrl = 'http://localhost:8676/api/loans';
+  private apiUrl = 'http://gateway-service:8222/api/loans';
   private predictionUrl = 'http://127.0.0.1:5000/predict'
 
   constructor(private http: HttpClient) { }

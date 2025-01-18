@@ -9,7 +9,7 @@ import { UserService } from '../user/user.service';
   providedIn: 'root'
 })
 export class FavoriteCurrencyService {
-  private apiUrl = 'http://localhost:8222/api/users';
+  private apiUrl = 'http://gateway-service:8222/api/users';
 
   constructor(private http: HttpClient, private userService: UserService) { }
 

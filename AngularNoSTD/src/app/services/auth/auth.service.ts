@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8222/api/auth'; // Adjust the URL if needed
+  private apiUrl = 'http://gateway-service:8222/api/auth'; // Adjust the URL if needed
 
   constructor(private http: HttpClient) {}
 
@@ -40,19 +40,19 @@ export class AuthService {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
-  
+
     // Get email from the token or user data
     const email = this.getEmailFromToken(token);
-  
+
     return this.http.get<any>(`${this.apiUrl}/users/email/${email}`, { headers });
   }
 
   getEmailFromToken(token: string | null): string {
     if (!token) return '';
-  
+
     const payload = JSON.parse(atob(token.split('.')[1]));  // Decode JWT payload
     return payload?.email || '';
   }
-  
-  
+
+
 }
