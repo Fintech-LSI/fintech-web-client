@@ -7,7 +7,7 @@ import { CurrencyResponse } from '../../models/currency-response.model';
   providedIn: 'root'
 })
 export class CurrencyService {
-  private apiUrl = 'http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/api/currencies';
+  private apiUrl = 'http://gateway-service:8222/api/currencies';
 
   constructor(private http: HttpClient) { }
 
