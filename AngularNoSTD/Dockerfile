@@ -27,7 +27,6 @@ COPY nginx/nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 # Copy built assets from builder stage - Path matches your angular.json outputPath
 COPY --from=builder /app/dist/angular-no-std /usr/share/nginx/html
-
 # Expose port 80
 EXPOSE 80
 
