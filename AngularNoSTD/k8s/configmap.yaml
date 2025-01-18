@@ -1,8 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: frontend-config
+  name: angular-frontend-config
   namespace: fintech
 data:
-  API_URL: "http://api-gateway.fintech.svc.cluster.local"
-  AUTH_SERVICE_URL: "http://auth-service.fintech.svc.cluster.local"
+  API_BASE_URL: "http://gateway-service:8222"  # Single gateway service URL
+  ENV_NAME: "production"
+  ALLOWED_ORIGINS: "*"
