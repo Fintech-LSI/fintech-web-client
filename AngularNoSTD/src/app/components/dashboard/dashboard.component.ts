@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
           icon: 'fa-exchange-alt',
           path: '/dashboard/favcurrency',
           isActive: false
-        },
+        }
       ]
     },
     {

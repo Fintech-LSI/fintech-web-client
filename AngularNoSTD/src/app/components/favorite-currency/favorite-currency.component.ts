@@ -2,85 +2,112 @@ import { Component, OnInit } from '@angular/core';
 import { FavoriteCurrencyService } from '../../services/favorite-currency/favorite-currency.service';
 import { CurrencyService } from '../../services/currency/currency.service';
 import { CurrencyResponse } from '../../models/currency-response.model';
-import { Router } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, throwError } from 'rxjs';
+import { finalize, switchMap } from 'rxjs/operators';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
-    selector: 'app-favorite-currency',
-    templateUrl: './favorite-currency.component.html',
-    styleUrls: ['./favorite-currency.component.scss'],
-    standalone: false
+  selector: 'app-favorite-currency',
+  templateUrl: './favorite-currency.component.html',
+  styleUrls: ['./favorite-currency.component.scss'],
+  standalone: false
 })
 export class FavoriteCurrencyComponent implements OnInit {
-    availableCurrencies: CurrencyResponse[] = [];
-    favoriteCurrencies: CurrencyResponse[] = [];
-    error: string = '';
+  allCurrencies: CurrencyResponse[] = [];
+  favoriteCurrencies: CurrencyResponse[] = [];
+  availableCurrencies: CurrencyResponse[] = [];
+  error: string = '';
+  isAddModalOpen: boolean = false;
+  selectedCurrencyId: number | null = null;
+  isLoading: boolean = true;
+  userId: number | null = null;
+  constructor(
+    private favoriteCurrencyService: FavoriteCurrencyService,
+    private currencyService: CurrencyService,
+    private userService: UserService,
+  ) { }
 
-    constructor(
-        private favoriteCurrencyService: FavoriteCurrencyService,
-        private currencyService: CurrencyService,
-        private router: Router
-    ) { }
+  ngOnInit(): void {
+   this.loadData();
+  }
 
-    ngOnInit(): void {
-        this.loadData();
-    }
+  loadData(): void {
+    this.isLoading = true;
+    this.error = '';
+      this.userService.validateToken(localStorage.getItem('token') || '').pipe(
+          switchMap(response => {
+            if(response.valid){
+              this.userId = response.user.id;
+              return this.userService.getUserById(response.user.id)
+            } else {
+              return  throwError(() => new Error('Invalid token'))
+            }
+          }),
+           finalize(() => this.isLoading = false),
 
-
-    loadData(): void {
-        forkJoin([
-            this.currencyService.getAllCurrencies(),
-            this.favoriteCurrencyService.getUserFavoriteCurrencies()
-        ]).subscribe({
-            next: ([allCurrencies, favoriteCurrencies]) => {
-              this.availableCurrencies = allCurrencies;
-              this.favoriteCurrencies = favoriteCurrencies;
-              this.filterCurrencies();
+      ).subscribe({
+        next: (user) => {
+          this.favoriteCurrencies = user.favoriteCurrencies || [];
+          this.currencyService.getAllCurrencies().subscribe({
+            next: (allCurrencies) => {
+             this.allCurrencies = allCurrencies;
+              this.updateAvailableCurrencies();
             },
             error: (error) => {
-                console.error('Error loading data:', error);
-                this.handleError(error);
+              console.error('Error loading currencies:', error);
+              this.error = 'Failed to load currencies. Please try again.';
             }
-        });
-    }
-
-    filterCurrencies(){
-       this.availableCurrencies = this.availableCurrencies.filter(currency =>
-              !this.favoriteCurrencies.some(fav => Number(fav.id) === Number(currency.id))
-          );
-    }
-
-    addFavoriteCurrency(currencyId: number): void {
-        this.favoriteCurrencyService.addFavoriteCurrency(currencyId).subscribe({
-            next: (data) => {
-              this.favoriteCurrencies.push(data);
-              this.filterCurrencies();
-            },
-            error: (error) => {
-                console.error('Error adding favorite currency:', error);
-                this.handleError(error);
-            }
-        });
-    }
-
-    removeFavoriteCurrency(currencyId: number): void {
-        this.favoriteCurrencyService.removeFavoriteCurrency(currencyId).subscribe({
-            next: () => {
-                this.loadData();
-            },
-            error: (error) => {
-                console.error('Error removing favorite currency:', error);
-                this.handleError(error);
-            }
-        });
-    }
-
-    private handleError(error: any): void {
-        if (error.status === 401) {
-            this.error = 'You are not authorized. Please log in.';
-            this.router.navigate(['/login']);
-        } else {
-            this.error = 'An error occurred. Please try again later.';
+          })
+        },
+        error: (error) => {
+            console.error('Error loading user data:', error);
+            this.error = 'Failed to load user data. Please try again.';
         }
+    });
+  }
+   updateAvailableCurrencies(): void {
+        this.availableCurrencies = this.allCurrencies.filter(currency =>
+            !this.favoriteCurrencies.some(fav => fav.id === currency.id)
+        );
     }
+
+  addFavoriteCurrency(): void {
+    if (this.selectedCurrencyId) {
+      this.isLoading = true;
+      this.favoriteCurrencyService.addFavoriteCurrency(this.selectedCurrencyId).subscribe({
+        next: () => {
+          this.loadData()
+          this.closeAddModal();
+        },
+        error: (error) => {
+          console.error('Error adding favorite currency:', error);
+          this.error = 'Failed to add favorite currency. Please try again.';
+            this.isLoading = false;
+        },
+      });
+    }
+  }
+
+  removeFavoriteCurrency(currencyId: number): void {
+      this.isLoading = true;
+    this.favoriteCurrencyService.removeFavoriteCurrency(currencyId).subscribe({
+      next: () => {
+        this.loadData()
+      },
+      error: (error) => {
+        console.error('Error removing favorite currency:', error);
+        this.error = 'Failed to remove favorite currency. Please try again.';
+          this.isLoading = false;
+      },
+    });
+  }
+
+  openAddModal(): void {
+    this.isAddModalOpen = true;
+  }
+
+  closeAddModal(): void {
+    this.isAddModalOpen = false;
+    this.selectedCurrencyId = null;
+  }
 }

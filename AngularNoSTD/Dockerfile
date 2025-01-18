@@ -1,28 +1,24 @@
 # Build stage
-FROM node:20-alpine AS build
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files from AngularNoSTD directory
-COPY AngularNoSTD/package*.json ./
+COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+RUN npm install --silent
 
-# Copy source code from AngularNoSTD directory
-COPY AngularNoSTD/ .
+COPY . ./
 
-# Build the application
-RUN npm run build --prod
+RUN npm run build
 
-# Runtime stage
-FROM nginx:1.25-alpine
+# Production stage
+FROM nginx:alpine
 
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+RUN rm /etc/nginx/conf.d/default.conf
 
-# Copy built files from build stage
-COPY --from=build /app/dist/fintech-web-client /usr/share/nginx/html
+COPY nginx/nginx-custom.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=builder /app/dist/angular-no-std/browser /usr/share/nginx/html
 
 EXPOSE 80
 
