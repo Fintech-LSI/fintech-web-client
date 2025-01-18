@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  private authUrl = 'http://localhost:8222/api/auth';
-  private userUrl = 'http://localhost:8222/api/users';
-  private imgUrl = 'http://localhost:8222/users/public/images';
+  private authUrl = 'http://gateway-service:8222/api/auth';
+  private userUrl = 'http://gateway-service:8222/api/users';
+  private imgUrl = 'http://gateway-service:8222/users/public/images';
 
   constructor(private http: HttpClient) {}
 
