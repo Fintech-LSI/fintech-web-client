@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoanService } from '../../services/loan/loan.service';
+import { UserService } from '../../services/user/user.service'; // Import UserService
 
 interface LoanRequest {
   userId: number;
@@ -40,11 +41,11 @@ export class LoanComponent {
     userId: 1,
     loanIntent: "PERSONAL",
     loanGrade: "D",
-    loanAmount: 35000.00,
-    loanInterestRate: 16.02,
-    loanPercentIncome: 0.59,
+    loanAmount: 0.00,
+    loanInterestRate: 0.00,
+    loanPercentIncome: 0.00,
     cbPersonDefaultOnFile: "Y",
-    cbPersonCredHistLength: 3,
+    cbPersonCredHistLength: 0,
   };
   loanId: number | null = null;
   loanStatus: number | null = null;
@@ -61,9 +62,20 @@ export class LoanComponent {
   loanGradeOptions: string[] = ["A", "B", "C", "D", "E", "F", "G"];
   personHomeOwnershipOptions: string[] = ["RENT", "OWN", "MORTGAGE", "OTHER"];
   cbPersonDefaultOnFileOptions: string[] = ["Y", "N"];
-  constructor(private loanService: LoanService) { }
+
+  userId: number | null = null; // Add userId property
+  loading: boolean = false;
+  error: string | null = null;
+
+
+  constructor(private loanService: LoanService, private userService: UserService) { } // Inject UserService
 
   createLoan() {
+    if(this.userId == null){
+      this.showAlertMessage('User ID not available. Please login', 'error');
+      return
+    }
+    this.loanRequest.userId = this.userId;
     this.loanService.createLoan(this.loanRequest).subscribe({
       next: (response) => {
         this.loanResponse = response;
@@ -79,12 +91,17 @@ export class LoanComponent {
     });
   }
   fetchUserLoans() {
-    this.loanService.getLoansByUserId(1).subscribe({
+    if (this.userId == null){
+      this.showAlertMessage('User ID not available. Please login', 'error');
+      return
+    }
+    this.loanService.getLoansByUserId(this.userId).subscribe({
       next: (response) => {
         this.userLoans = response;
       },
       error: (err) =>{
-        console.log("Error fetching loans for user 1");
+        console.log("Error fetching loans for user ", this.userId);
+        this.showAlertMessage('Error fetching loan!', 'error');
       }
     });
   }
@@ -117,6 +134,38 @@ export class LoanComponent {
     }, 3000);
   }
   ngOnInit(){
-    this.fetchUserLoans();
+    this.validateAndLoadProfile();
+    //this.fetchUserLoans(); // removed fetch here , since the profile loading takes time,
+    // we have to get the user Id before the fetching user loans.
+
   }
+
+
+  validateAndLoadProfile(): void {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        this.error = 'No token found. Please log in.';
+        return;
+      }
+
+      this.loading = true;
+      this.userService.validateToken(token).subscribe({
+        next: (response) => {
+          const { user } = response; // Only get the user object
+          this.userId = user.id; // Extract user ID and assign it
+          this.loading = false;
+          this.fetchUserLoans();
+        },
+        error: (err) => {
+          this.error = 'Failed to validate token or load profile data.';
+          console.error(err);
+          this.loading = false;
+        },
+      });
+    } else {
+      this.error = 'Local storage is not available.';
+    }
+  }
+
 }
