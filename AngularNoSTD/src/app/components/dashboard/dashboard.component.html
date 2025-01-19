@@ -37,10 +37,13 @@
         </div>
 
         <!-- Notifications -->
-        <button class="relative p-2 rounded-lg hover:bg-base-200 transition-colors">
-          <i class="fas fa-bell text-lg"></i>
-          <span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
-        </button>
+          <button class="relative p-2 rounded-lg hover:bg-base-200 transition-colors" (click)="toggleNotifications()">
+              <i class="fas fa-bell text-lg"></i>
+              <span *ngIf="unreadNotificationCount > 0" class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+                <span *ngIf="unreadNotificationCount > 0" class="absolute top-2 right-3 text-[10px] text-white"> {{ unreadNotificationCount}}</span>
+          </button>
+          <app-notification *ngIf="showNotifications"></app-notification>
+
 
         <!-- User Menu -->
         <div class="flex items-center gap-3">

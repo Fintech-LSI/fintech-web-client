@@ -31,6 +31,9 @@ import { CurrencyComponent } from './components/currency/currency.component';
 import { LoanComponent } from './components/loan/loan.component';
 import { LoanManagerComponent } from './components/loan-manager/loan-manager.component';
 import { FavoriteCurrencyComponent } from './components/favorite-currency/favorite-currency.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { ManageUsersComponent } from './components/manage-users/manage-users.component';
+import { ManageWalletsComponent } from './components/manage-wallets/manage-wallets.component';
 
 
 
@@ -55,6 +58,9 @@ import { FavoriteCurrencyComponent } from './components/favorite-currency/favori
     LoanComponent,
     LoanManagerComponent,
     FavoriteCurrencyComponent,
+    NotificationComponent,
+    ManageUsersComponent,
+    ManageWalletsComponent,
   ],
   imports: [
     BrowserModule,

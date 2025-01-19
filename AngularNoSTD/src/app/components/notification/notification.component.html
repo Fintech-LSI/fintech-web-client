@@ -1,0 +1,17 @@
+<div class="fixed top-16 right-6 bg-base-100 shadow-lg rounded-md overflow-hidden z-50 w-96">
+  <div *ngIf="isLoading" class="p-4 text-center">Loading notifications...</div>
+    <div *ngIf="!isLoading && notifications.length === 0" class="p-4 text-center">No notifications</div>
+  <div *ngIf="!isLoading && notifications.length > 0" class="max-h-96 overflow-y-auto">
+    <div *ngFor="let notification of notifications" class="p-4 border-b border-base-200 last:border-b-0 relative">
+       <div class="flex justify-between items-center">
+        <p class="font-medium">{{ notification.message}}</p>
+        <div class="flex gap-2">
+            <button (click)="markAsRead(notification.id)" *ngIf="!notification.read" class="btn btn-xs btn-ghost">Mark as Read</button>
+        </div>
+       </div>
+        <p class="text-xs text-base-content/50 mt-1">
+          {{ notification.timestamp | date:'MMM d, y, h:mm a' }}
+        </p>
+    </div>
+  </div>
+</div>

@@ -34,7 +34,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/validate-token`, { token }, { headers });
   }
 
-  getUserProfile(): Observable<any> {
+   getUserProfile(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
@@ -47,12 +47,27 @@ export class AuthService {
     return this.http.get<any>(`${this.apiUrl}/users/email/${email}`, { headers });
   }
 
+
   getEmailFromToken(token: string | null): string {
     if (!token) return '';
   
-    const payload = JSON.parse(atob(token.split('.')[1]));  // Decode JWT payload
-    return payload?.email || '';
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));  // Decode JWT payload
+      return payload?.email || '';
+    } catch (error) {
+      console.error('Error decoding or parsing the JWT token payload:', error);
+      return '';
+   }
   }
-  
+    getRoleFromToken(token: string | null): string {
+        if (!token) return '';
+        try {
+          const payload = JSON.parse(atob(token.split('.')[1]));  // Decode JWT payload
+            return payload?.role || '';
+       } catch (error) {
+             console.error('Error decoding or parsing the JWT token payload:', error);
+          return '';
+        }
+    }
   
 }
