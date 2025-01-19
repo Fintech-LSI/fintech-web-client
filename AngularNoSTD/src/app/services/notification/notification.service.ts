@@ -9,7 +9,7 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class NotificationService {
-  private apiUrl = `http://a9761a9b3f803425b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/api/notifications`;
+  private apiUrl = `http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/api/notifications`;
 
   constructor(private http: HttpClient, private userService: UserService) { }
 
