@@ -14,7 +14,7 @@ RUN npm install --silent
 COPY . ./
 
 # Build the Angular application
-RUN npm run build --prod
+RUN npm run build
 
 # Production stage
 FROM nginx:alpine
@@ -26,7 +26,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx/nginx-custom.conf /etc/nginx/conf.d/default.conf
 
 # Copy built assets from the builder stage
-COPY --from=builder /app/dist/angular-no-std /usr/share/nginx/html
+COPY --from=builder /app/dist/angular-no-std/browser /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
