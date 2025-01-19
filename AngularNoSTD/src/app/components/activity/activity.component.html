@@ -1,87 +1,92 @@
 <section class="space-y-4">
-    <h2 class="text-2xl font-bold mb-4">Activity</h2>
+  <h2 class="text-2xl font-bold mb-4">Notifications</h2>
 
-    <!-- Search and Filter -->
-    <div class="card card-body  bg-base-100">
-      <div class="flex items-center space-x-4 mb-6">
-        <!-- Search Input -->
-        <div class="flex-1">
-          <input
-            type="text"
-            placeholder="Search Transactions..."
-            class="input w-full  border border-base-300 focus:outline-blue-500 "
-          />
-        </div>
-
-        <!-- Filter Options -->
-        <div class="flex space-x-4">
-          <select class="select w-full  border border-base-300 focus:outline-blue-500">
-            <option value="all">All Transactions</option>
-            <option value="payments">Payments</option>
-            <option value="deposits">Deposits</option>
-            <option value="withdrawals">Withdrawals</option>
-          </select>
-          <select class="select w-full  border border-base-300 focus:outline-blue-500">
-            <option value="last7days">Last 7 Days</option>
-            <option value="last30days">Last 30 Days</option>
-            <option value="all">All Time</option>
-          </select>
-          <button class="btn btn-primary">
-            Filter
-          </button>
-        </div>
+  <!-- Search and Filter -->
+  <div class="card card-body bg-base-100">
+    <div class="flex items-center space-x-4 mb-6">
+      <!-- Search Input -->
+      <div class="flex-1">
+        <input
+          type="text"
+          placeholder="Search Notifications..."
+          class="input w-full border border-base-300 focus:outline-blue-500"
+          (input)="onSearchChange($event)"
+        />
       </div>
 
-      <!-- Activity List -->
-      <ul class="space-y-4">
-        <li class=" card card-body bg-base-300 transition">
-          <div class="flex justify-between">
-
-          <div class="flex items-center space-x-4">
-            <i class="fas fa-arrow-down text-red-500"></i>
-            <div>
-              <span class="font-semibold  ">Payment to John</span>
-              <p class="text-sm text-gray-600">Nov 19, 2024</p>
-            </div>
-          </div>
-          <span class="text-red-500">- $250.00</span>
-          </div>
-        </li>
-
-        <li class=" card card-body bg-base-300 transition">
-          <div class="flex justify-between">
-            <div class="flex items-center space-x-4">
-              <i class="fas fa-arrow-up text-green-500"></i>
-              <div>
-                <span class="font-semibold  ">Deposit from PayPal</span>
-                <p class="text-sm text-gray-600">Nov 18, 2024</p>
-              </div>
-            </div>
-            <span class="text-green-500">+ $500.00</span>
-          </div>
-        </li>
-
-        <li class=" card card-body bg-base-300 transition">
-          <div class="flex justify-between">
-            <div class="flex items-center space-x-4">
-              <i class="fas fa-arrow-down text-red-500"></i>
-              <div>
-                <span class="font-semibold  ">Payment to Sarah</span>
-                <p class="text-sm text-gray-600">Nov 17, 2024</p>
-              </div>
-            </div>
-            <span class="text-red-500">- $120.00</span>
-          </div>
-        </li>
-
-        <!-- More transactions here -->
-      </ul>
-
-      <!-- Pagination or Load More Button -->
-      <div class="flex justify-center mt-6">
-        <button class="btn btn-primary">
-          Load More
+      <!-- Filter Options -->
+      <div class="flex space-x-4">
+        <select
+          class="select w-full border border-base-300 focus:outline-blue-500"
+          (change)="onFilterChange($event)"
+        >
+          <option value="all">All Notifications</option>
+            <option value="payment">Payments</option>
+            <option value="deposit">Deposits</option>
+            <option value="withdrawal">Withdrawals</option>
+        </select>
+        <select
+          class="select w-full border border-base-300 focus:outline-blue-500"
+          (change)="onFilterChange($event)"
+        >
+          <option value="all">All Time</option>
+          <option value="last7days">Last 7 Days</option>
+          <option value="last30days">Last 30 Days</option>
+        </select>
+        <button class="btn btn-primary" (click)="onFilterChange($event)">
+          Filter
         </button>
       </div>
     </div>
-  </section>
+
+    <!-- Notification List -->
+    <ul class="space-y-4">
+      <li
+        *ngFor="let notification of notifications"
+        class="card card-body bg-base-300 transition"
+      >
+        <div class="flex justify-between items-start">
+          <div class="flex items-start space-x-4">
+            <div [ngSwitch]="notification.type">
+             <i *ngSwitchCase="'payment'" class="fas fa-arrow-down text-red-500"></i>
+             <i *ngSwitchCase="'deposit'" class="fas fa-arrow-up text-green-500"></i>
+             <i *ngSwitchCase="'withdrawal'" class="fas fa-arrow-down text-yellow-500"></i>
+             <i *ngSwitchDefault class="fas fa-bell text-gray-500"></i>
+            </div>
+            <div>
+              <p class="font-semibold ">{{ notification.message }}</p>
+              <p class="text-sm text-gray-600">
+                {{ notification.timestamp | date: 'medium' }}
+              </p>
+            </div>
+          </div>
+          <div *ngIf="notification.type !== 'other'">
+              <span
+                 [ngClass]="{
+                    'text-red-500':
+                    notification.type === 'payment',
+                      'text-green-500': notification.type === 'deposit',
+                     'text-yellow-500': notification.type === 'withdrawal'
+              }"
+            >
+                 {{
+                     notification.type === 'payment' ||
+                     notification.type === 'withdrawal'
+                       ? '-'
+                       : '+'
+                 }} $ {{ notification.amount }}
+             </span>
+          </div>
+        </div>
+      </li>
+        <div *ngIf="notifications.length === 0">
+          <p> No notifications to show </p>
+        </div>
+    </ul>
+
+    <!-- Pagination or Load More Button -->
+    <div class="flex justify-center mt-6">
+      <button class="btn btn-primary" (click)="onLoadMore()"> Load More </button>
+    </div>
+  </div>
+</section>

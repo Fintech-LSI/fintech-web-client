@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { NotificationResponse, NotificationRequest } from '../../models/notification.model';
 import { UserService } from '../user/user.service';
@@ -17,18 +17,18 @@ export class NotificationService {
        return this.http.post<NotificationResponse>(this.apiUrl, notification);
     }
 
-    getUserNotifications(): Observable<NotificationResponse[]> {
-      return this.userService.validateToken(localStorage.getItem('token') || '').pipe(
-           switchMap(response => {
-              if(response.valid && response.user){
-                const userId = response.user.id;
-               return this.http.get<NotificationResponse[]>(`${this.apiUrl}/user/${userId}`);
-              }else {
-               return throwError(() => new Error('Invalid token'))
-              }
-            })
-        );
-    }
+     getUserNotifications(): Observable<NotificationResponse[]> {
+          return this.userService.validateToken(localStorage.getItem('token') || '').pipe(
+              switchMap(response => {
+                  if (response.valid && response.user) {
+                      const userId = response.user.id;
+                      return this.http.get<NotificationResponse[]>(`${this.apiUrl}/user/${userId}`);
+                  } else {
+                      return throwError(() => new Error('Invalid token'))
+                  }
+              })
+          );
+      }
 
     getUnreadNotifications(): Observable<NotificationResponse[]> {
       return this.userService.validateToken(localStorage.getItem('token') || '').pipe(
