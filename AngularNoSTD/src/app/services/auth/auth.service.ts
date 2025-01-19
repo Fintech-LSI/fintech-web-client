@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/api/auth'; // Adjust the URL if needed
+  private apiUrl = '/api/auth';  // Adjust the URL if needed
 
   constructor(private http: HttpClient) {}
 
@@ -50,7 +50,7 @@ export class AuthService {
 
   getEmailFromToken(token: string | null): string {
     if (!token) return '';
-  
+
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));  // Decode JWT payload
       return payload?.email || '';
@@ -69,5 +69,5 @@ export class AuthService {
           return '';
         }
     }
-  
+
 }

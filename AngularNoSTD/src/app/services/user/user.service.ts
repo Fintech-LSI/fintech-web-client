@@ -16,9 +16,9 @@ interface UserValidationResponse {
     providedIn: 'root',
 })
 export class UserService {
-    private authUrl = 'http://localhost:8222/api/auth';
-    private userUrl = 'http://localhost:8222/api/users';
-    private imgUrl = 'http://localhost:8222/users/public/images';
+    private authUrl = '/api/auth';
+    private userUrl = '/api/users';
+    private imgUrl = '/users/public/images';
     userId: number | null = null;
     constructor(private http: HttpClient, private router: Router, private eventService: EventService) { }
 
