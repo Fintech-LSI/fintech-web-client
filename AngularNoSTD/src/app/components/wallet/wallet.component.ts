@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { WalletService } from '../../services/wallet/wallet.service';
 import { CurrencyService } from '../../services/currency/currency.service';
 import { WalletResponse } from '../../models/wallet-response.model';
@@ -7,6 +7,9 @@ import { CreateWalletRequest } from '../../models/create-wallet-request.model';
 import { UpdateBalanceRequest } from '../../models/update-balance-request.model';
 import { TransactionRequest } from '../../models/transaction-request.model';
 import { Router } from '@angular/router';
+import { TransactionService } from '../../services/transaction/transaction.service';
+import { Subject, takeUntil } from 'rxjs';
+
 
 @Component({
   selector: 'app-wallet',
@@ -14,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./wallet.component.scss'],
   standalone: false
 })
-export class WalletComponent implements OnInit {
+export class WalletComponent implements OnInit, OnDestroy {
     wallets: WalletResponse[] = [];
     currencies: CurrencyResponse[] = [];
     newWallet: CreateWalletRequest = { userId: 0, currencyCode: '', initialBalance: 0 };
@@ -22,16 +25,24 @@ export class WalletComponent implements OnInit {
     transaction: TransactionRequest = { transactionType: '', walletId: 0, targetWalletId: 0, amount: 0, description: '', moneyMethod: '' };
     selectedWalletForUpdate: WalletResponse | null = null;
     error: string = '';
+    private destroy$ = new Subject<void>();
+
 
     constructor(
       private walletService: WalletService,
       private currencyService: CurrencyService,
-      private router: Router
+      private router: Router,
+        private transactionService: TransactionService,
+
     ) { }
 
     ngOnInit(): void {
       this.loadWallets();
       this.loadCurrencies();
+    }
+    ngOnDestroy(): void {
+      this.destroy$.next();
+      this.destroy$.complete();
     }
 
     loadWallets(): void {
@@ -100,12 +111,12 @@ export class WalletComponent implements OnInit {
       }
   }
 
-
     performTransaction(): void {
     this.walletService.performTransaction(this.transaction).subscribe({
       next: (data) => {
         this.loadWallets();
         this.transaction = { transactionType: '', walletId: 0, targetWalletId: 0, amount: 0, description: '', moneyMethod: '' };
+           this.transactionService.incrementTransactionCount();
       },
       error: (error) => {
         console.error('Error performing transaction:', error);

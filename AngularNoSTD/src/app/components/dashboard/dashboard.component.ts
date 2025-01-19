@@ -148,6 +148,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 path: '/dashboard/currencies',
                 isActive: false
               },
+              {
+                title: 'Loan Manager',
+                icon: 'fa-solid fa-money-bills',
+                path: '/dashboard/loan-manager',
+                isActive: false
+              },
             ]
           },
           {
@@ -182,12 +188,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 path: '/dashboard/loan',
                 isActive: false
               },
-              {
-                title: 'Loan Manager',
-                icon: 'fa-solid fa-money-bills',
-                path: '/dashboard/loan-manager',
-                isActive: false
-              },
+              
               {
                 title: 'Fav Currencies',
                 icon: 'fa-exchange-alt',

@@ -34,6 +34,14 @@ import { FavoriteCurrencyComponent } from './components/favorite-currency/favori
 import { NotificationComponent } from './components/notification/notification.component';
 import { ManageUsersComponent } from './components/manage-users/manage-users.component';
 import { ManageWalletsComponent } from './components/manage-wallets/manage-wallets.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -72,6 +80,16 @@ import { ManageWalletsComponent } from './components/manage-wallets/manage-walle
     JwtModule,
     FontAwesomeModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatInputModule,
+    MatFormFieldModule
+  
+    
 
 
 
