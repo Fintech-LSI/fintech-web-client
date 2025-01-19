@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8222/api/auth'; // Adjust the URL if needed
+  private apiUrl = 'http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/api/auth'; // Adjust the URL if needed
 
   constructor(private http: HttpClient) {}
 
@@ -40,10 +40,10 @@ export class AuthService {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
-  
+
     // Get email from the token or user data
     const email = this.getEmailFromToken(token);
-  
+
     return this.http.get<any>(`${this.apiUrl}/users/email/${email}`, { headers });
   }
 

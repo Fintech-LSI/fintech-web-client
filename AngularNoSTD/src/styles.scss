@@ -7,3 +7,27 @@
 * {
   scroll-behavior: smooth;
 }
+
+.input-bordered:focus {
+  outline: 2px solid #3498db !important;
+  box-shadow: none !important;
+}
+
+.select-bordered:focus{
+  outline: 2px solid #3498db !important;
+  box-shadow: none !important;
+}
+
+.btn-error, .btn-error:hover{
+  background-color: #ff0000;
+  color: white;
+  border: 0;
+}
+
+
+.btn-primary, .btn-primary:hover{
+  background-color: #008cff;
+  color: white;
+  border: 0;
+}
+
