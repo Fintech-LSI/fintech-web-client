@@ -41,8 +41,8 @@ interface PredictionResponse {
   providedIn: 'root'
 })
 export class LoanService {
-  private apiUrl = 'http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/api/loans';
-  private predictionUrl = 'http://a137386fd8c584cd881db919b02e7d04-2055902031.us-east-1.elb.amazonaws.com/predict'
+  private apiUrl = 'http://a3063d09a41694002ade7ef737fe9050-1902268877.us-east-1.elb.amazonaws.com:8097/api/loans';
+  private predictionUrl = 'http://a7514615d07c44a3ead7a5879bdcd29e-667143314.us-east-1.elb.amazonaws.com/predict'
 
   constructor(private http: HttpClient) { }
 

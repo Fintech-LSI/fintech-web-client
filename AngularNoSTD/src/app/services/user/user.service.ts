@@ -16,9 +16,9 @@ interface UserValidationResponse {
     providedIn: 'root',
 })
 export class UserService {
-    private authUrl = 'http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/api/auth';
-    private userUrl = 'http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/api/users';
-    private imgUrl = 'http://a9761a9b3f8034259b6153cee04be721-959097204.us-east-1.elb.amazonaws.com:8222/users/public/images';
+    private authUrl = 'http://acb8a98ef0c1c46f6995a6d6301f2dc2-471277962.us-east-1.elb.amazonaws.com:8222/api/auth';
+    private userUrl = 'http://acb8a98ef0c1c46f6995a6d6301f2dc2-471277962.us-east-1.elb.amazonaws.com:8222/api/users';
+    private imgUrl = 'http://acb8a98ef0c1c46f6995a6d6301f2dc2-471277962.us-east-1.elb.amazonaws.com:8222/users/public/images';
     userId: number | null = null;
     constructor(private http: HttpClient, private router: Router, private eventService: EventService) { }
 
