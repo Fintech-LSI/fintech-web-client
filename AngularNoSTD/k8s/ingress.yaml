@@ -17,14 +17,14 @@ spec:
     - http:
         paths:
           - path: /api/(.*)
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: gateway-service
                 port:
                   number: 8222
           - path: /(.*)
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: angular-frontend
