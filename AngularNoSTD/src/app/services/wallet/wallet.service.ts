@@ -130,3 +130,34 @@ export class WalletService {
       );
     }
 }
+  performTransaction(request: TransactionRequest): Observable<WalletResponse> {
+      return this.userService.validateToken(localStorage.getItem('token') || '').pipe(
+        switchMap(response => {
+            if (response.valid) {
+              request.walletId = response.user.id;
+              if(request.transactionType === 'DEPOSIT'){
+                return this.http.post<WalletResponse>(`${this.apiUrl}/deposit`, request, { headers: this.getHeaders() });
+              }
+              if(request.transactionType === 'TRANSFER'){
+                return this.http.post<WalletResponse>(`${this.apiUrl}/transfer`, request, { headers: this.getHeaders() });
+              }
+              if(request.transactionType === 'WITHDRAW'){
+                return this.http.post<WalletResponse>(`${this.apiUrl}/withdraw`, request, { headers: this.getHeaders() });
+              }
+               return throwError(() => new Error('Invalid transaction type'));
+           } else {
+              return throwError(() => new Error('Invalid token'));
+           }
+          }),
+        tap((transactionResult) => {
+             const event: NotificationRequest = {
+               userId: request.walletId,
+              recipient: '',
+              message: `Performed ${request.transactionType} transaction of ${request.amount} in wallet: ${request.walletId}`,
+              timestamp: new Date().toISOString(),
+              };
+             this.eventService.emit(event);
+        })
+    );
+  }
+}
