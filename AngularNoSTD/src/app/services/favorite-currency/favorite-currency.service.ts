@@ -11,7 +11,7 @@ import { EventService } from '../event/event.service';
   providedIn: 'root'
 })
 export class FavoriteCurrencyService {
-  private apiUrl = 'http://acb8a98ef0c1c46f6995a6d6301f2dc2-471277962.us-east-1.elb.amazonaws.com:8222/api/users';
+  private apiUrl = 'http://abb887b0c62ca480fb7bc67a5a1408f3-631602432.us-east-1.elb.amazonaws.com:8222/api/users';
 
   constructor(private http: HttpClient, private userService: UserService, private eventService: EventService) { }
 
