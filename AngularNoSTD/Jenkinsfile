@@ -8,7 +8,7 @@ pipeline {
         EKS_CLUSTER_NAME = 'main-cluster'
         NAMESPACE       = 'fintech'
         SONAR_PROJECT_KEY = 'angular-fronted'
-        SONAR_SERVER_URL = 'http://54.86.47.1:9000'
+        SONAR_SERVER_URL = 'http://3.85.208.127:9000'
     }
 
     stages {
@@ -22,6 +22,33 @@ pipeline {
             steps {
                 dir('AngularNoSTD') {
                     sh 'npm install'
+                }
+            }
+        }
+
+        stage('SonarQube Analysis') {
+            steps {
+                dir('AngularNoSTD') {
+                    script {
+                        withSonarQubeEnv('SonarQube') {
+                            sh """
+                                sonar-scanner \
+                                    -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                                    -Dsonar.sources=src \
+                                    -Dsonar.host.url=${SONAR_SERVER_URL} \
+                                    -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+                                    -Dsonar.sourceEncoding=UTF-8
+                            """
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
