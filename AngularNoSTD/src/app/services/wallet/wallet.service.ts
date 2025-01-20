@@ -14,7 +14,7 @@ import { EventService } from '../event/event.service';
     providedIn: 'root'
 })
 export class WalletService {
-    private apiUrl = 'http://abb887b0c62ca480fb7bc67a5a1408f3-631602432.us-east-1.elb.amazonaws.com:8222/api/wallets';
+    private apiUrl = 'http://a6d67a21ec9f6481c90554529051afdc-1750605808.us-east-1.elb.amazonaws.com:8222/api/wallets';
 
     constructor(private http: HttpClient, private userService: UserService, private eventService: EventService) { }
 
